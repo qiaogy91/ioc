@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package infra.example.app01;
+
+import "apps/app01/pb/model.proto";
+
+option go_package = "github.com/qiaogy91/ioc/example/apps/app01";
+
+
+service Service {
+    rpc Create (CreateUserReq) returns (User);
+    rpc List (ListUserReq) returns (UserSet);
+}
+
+
+message ListUserReq {
+}

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package infra.example.app01;
+
+option go_package = "github.com/qiaogy91/ioc/example/apps/app01";
+
+message User {
+    // @gotags: json:"meta" gorm:"embedded"
+    Meta meta = 1;
+    // @gotags: json:"spec" gorm:"embedded"
+    CreateUserReq spec = 2;
+}
+
+message Meta {
+    // @gotags: json:"id"
+    int64 id = 1;
+    // @gotags: gorm:"autoCreateTime"
+    int64 created_at = 2;
+    // @gotags: gorm:"autoUpdateTime"
+    int64 updated_at = 3;
+}
+message CreateUserReq {
+    string username = 1;
+    string password = 2;
+}
+
+message UserSet {
+    int64 total = 1;
+    repeated User items = 2;
+}

@@ -1,0 +1,310 @@
+{"level":"info","component":"gin-framework","time":"2024-10-05T13:13:57+08:00","caller":"gin/framework.go:44      ","message":"gin trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T13:13:57+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T13:13:57+08:00","caller":"gin/cors.go:43           ","message":"gin cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-05T13:13:57+08:00","caller":"gin/api.go:47            ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T13:13:57+08:00","caller":"gin/api.go:28            ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T13:13:57+08:00","caller":"gin/api.go:32            ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:13:57+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace gin-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:13:57+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:13:57+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:13:57+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"grpc","time":"2024-10-05T13:13:57+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"http","time":"2024-10-05T13:13:57+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:23+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T13:18:23+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T13:18:23+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"gin-framework","time":"2024-10-05T13:18:27+08:00","caller":"gin/framework.go:44      ","message":"gin trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T13:18:27+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T13:18:27+08:00","caller":"gin/cors.go:43           ","message":"gin cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-05T13:18:27+08:00","caller":"gin/api.go:47            ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T13:18:27+08:00","caller":"gin/api.go:28            ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T13:18:27+08:00","caller":"gin/api.go:32            ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:27+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace gin-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:27+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:27+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:27+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T13:18:27+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T13:18:27+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:49+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T13:18:49+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T13:18:49+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"gin-framework","time":"2024-10-05T13:18:52+08:00","caller":"gin/framework.go:44      ","message":"gin trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T13:18:52+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T13:18:52+08:00","caller":"gin/cors.go:43           ","message":"gin cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-05T13:18:52+08:00","caller":"gin/api.go:47            ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T13:18:52+08:00","caller":"gin/api.go:28            ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T13:18:52+08:00","caller":"gin/api.go:32            ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:52+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace gin-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:52+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:52+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:18:52+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T13:18:52+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T13:18:52+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T13:31:49+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T13:31:49+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T13:31:49+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"gin-framework","time":"2024-10-05T15:00:45+08:00","caller":"gin/framework.go:44      ","message":"gin trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:00:45+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:00:45+08:00","caller":"gin/cors.go:43           ","message":"gin cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:00:45+08:00","caller":"gin/api.go:47            ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:00:45+08:00","caller":"gin/api.go:28            ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:00:45+08:00","caller":"gin/api.go:32            ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:00:45+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace gin-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:00:45+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:00:45+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:00:45+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:00:45+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:00:45+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:01:22+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:01:22+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:01:22+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"gin-framework","time":"2024-10-05T15:05:38+08:00","caller":"gin/framework.go:44      ","message":"gin trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:05:38+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:05:38+08:00","caller":"gin/cors.go:43           ","message":"gin cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:05:38+08:00","caller":"gin/api.go:47            ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:05:38+08:00","caller":"gin/api.go:28            ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:05:38+08:00","caller":"gin/api.go:32            ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:05:38+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace gin-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:05:38+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:05:38+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:05:38+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:05:38+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:05:38+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:10:55+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:10:55+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:10:55+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"gin-framework","time":"2024-10-05T15:11:01+08:00","caller":"gin/framework.go:44      ","message":"gin trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:11:01+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:11:01+08:00","caller":"gin/cors.go:43           ","message":"gin cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:11:01+08:00","caller":"gin/api.go:47            ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:11:01+08:00","caller":"gin/api.go:28            ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:11:01+08:00","caller":"gin/api.go:32            ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:11:01+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace gin-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:11:01+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:11:01+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:11:01+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:11:01+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:11:01+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:28:45+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:28:45+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:28:45+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"gin-framework","time":"2024-10-05T15:28:55+08:00","caller":"gin/framework.go:44      ","message":"gin trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:28:55+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:28:55+08:00","caller":"gin/cors.go:43           ","message":"gin cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:28:55+08:00","caller":"gin/api.go:47            ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:28:55+08:00","caller":"gin/api.go:28            ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:28:55+08:00","caller":"gin/api.go:32            ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:28:55+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace gin-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:28:55+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:28:55+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:28:55+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:28:55+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:28:55+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:30:25+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:30:25+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:30:25+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-05T15:30:36+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:30:36+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:30:36+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"app01","time":"2024-10-05T15:30:36+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:30:36+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:30:36+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:30:36+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:30:36+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:30:36+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-05T15:30:36+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:30:36+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:30:36+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:30:36+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:30:36+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:30:36+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:33:57+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:33:57+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:33:57+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-05T15:34:02+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:34:02+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:34:02+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"app01","time":"2024-10-05T15:34:02+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:34:02+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:34:02+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:34:02+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:34:02+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:34:02+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-05T15:34:02+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:34:02+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:34:02+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:34:02+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:34:02+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:34:02+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:35:37+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:35:37+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:35:37+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-05T15:35:47+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:35:47+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:35:47+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"app01","time":"2024-10-05T15:35:47+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:35:47+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:35:47+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:35:47+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:35:47+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:35:47+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-05T15:35:47+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:35:47+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:35:47+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:35:47+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:35:47+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:35:47+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:37:14+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:37:14+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:37:14+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-05T15:37:18+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-05T15:37:18+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-05T15:37:18+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"app01","time":"2024-10-05T15:37:18+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:37:18+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-05T15:37:18+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"metrics","time":"2024-10-05T15:37:18+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"health","time":"2024-10-05T15:37:18+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-05T15:37:18+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-05T15:37:18+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:37:18+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:37:18+08:00","caller":"server/server.go:58      ","message":"loaded apis: [app01 metrics health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:37:18+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-05T15:37:18+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-05T15:37:18+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-05T15:39:47+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-05T15:39:47+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-05T15:39:47+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-06T00:07:31+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-06T00:07:31+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-06T00:07:31+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-06T00:07:31+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"app01","time":"2024-10-06T00:07:31+08:00","caller":"restful/api.go:37        ","message":"GET    /metrics/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:07:31+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:07:31+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:07:31+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"health","time":"2024-10-06T00:07:31+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-06T00:07:31+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-06T00:07:31+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:07:31+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:07:31+08:00","caller":"server/server.go:58      ","message":"loaded apis: [metrics app01 health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:07:31+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-06T00:07:31+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-06T00:07:31+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:24+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-06T00:09:24+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-06T00:09:24+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-06T00:09:32+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-06T00:09:32+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-06T00:09:32+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-06T00:09:32+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:32+08:00","caller":"restful/api.go:37        ","message":"GET    /metrics/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:32+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:32+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:32+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"health","time":"2024-10-06T00:09:32+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-06T00:09:32+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:32+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:32+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:32+08:00","caller":"server/server.go:58      ","message":"loaded apis: [metrics app01 health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:32+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-06T00:09:32+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-06T00:09:32+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:34+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-06T00:09:34+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-06T00:09:34+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-06T00:09:44+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-06T00:09:44+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-06T00:09:44+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-06T00:09:44+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:44+08:00","caller":"restful/api.go:37        ","message":"GET    /metrics/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:44+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:44+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:09:44+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"health","time":"2024-10-06T00:09:44+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-06T00:09:44+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:44+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:44+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:44+08:00","caller":"server/server.go:58      ","message":"loaded apis: [metrics app01 health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:09:44+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-06T00:09:44+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-06T00:09:44+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:11:21+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-06T00:11:21+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-06T00:11:21+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-06T00:11:29+08:00","caller":"gorestful/gorestful.go:43","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-06T00:11:29+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-06T00:11:29+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-06T00:11:29+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"app01","time":"2024-10-06T00:11:29+08:00","caller":"restful/api.go:37        ","message":"GET    /metrics/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:11:29+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:11:29+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:11:29+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"health","time":"2024-10-06T00:11:29+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-06T00:11:29+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-06T00:11:29+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:11:29+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:11:29+08:00","caller":"server/server.go:58      ","message":"loaded apis: [metrics app01 health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:11:29+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-06T00:11:29+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-06T00:11:29+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:11:58+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-06T00:11:58+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-06T00:11:58+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-06T00:12:03+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-06T00:12:03+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-06T00:12:03+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-06T00:12:03+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"app01","time":"2024-10-06T00:12:03+08:00","caller":"restful/api.go:37        ","message":"GET    /metrics/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:12:03+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:12:03+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:12:03+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"health","time":"2024-10-06T00:12:03+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-06T00:12:03+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-06T00:12:03+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:12:03+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:12:03+08:00","caller":"server/server.go:58      ","message":"loaded apis: [metrics app01 health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:12:03+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-06T00:12:03+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-06T00:12:03+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:12:16+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-06T00:12:16+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-06T00:12:16+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"info","component":"restful-framework","time":"2024-10-06T00:14:07+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-06T00:14:07+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-06T00:14:07+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-06T00:14:07+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:07+08:00","caller":"restful/api.go:37        ","message":"GET    /metrics/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:07+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:07+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:07+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"health","time":"2024-10-06T00:14:07+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-06T00:14:07+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:07+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:07+08:00","caller":"server/server.go:57      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:07+08:00","caller":"server/server.go:58      ","message":"loaded apis: [metrics app01 health swagger]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:07+08:00","caller":"server/server.go:59      ","message":"loaded defaults: []"}
+{"level":"info","component":"http","time":"2024-10-06T00:14:07+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-06T00:14:07+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:32+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"info","component":"http","time":"2024-10-06T00:14:32+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}
+{"level":"error","component":"http","time":"2024-10-06T00:14:32+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"restful-framework","time":"2024-10-06T00:14:35+08:00","caller":"gorestful/gorestful.go:41","message":"restful trace enabled"}
+{"level":"info","component":"datasource","time":"2024-10-06T00:14:35+08:00","caller":"datasource/mysql.go:69   ","message":"mysql trace enabled"}
+{"level":"info","component":"cors","time":"2024-10-06T00:14:35+08:00","caller":"restful/cors.go:44       ","message":"restful cors enabled"}
+{"level":"info","component":"metrics","time":"2024-10-06T00:14:35+08:00","caller":"restful/api.go:51        ","message":"Get the Metric using http://127.0.0.1:8080/metrics"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:35+08:00","caller":"restful/api.go:37        ","message":"GET    /metrics/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:35+08:00","caller":"restful/api.go:37        ","message":"GET    /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:35+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/"}
+{"level":"info","component":"app01","time":"2024-10-06T00:14:35+08:00","caller":"restful/api.go:37        ","message":"POST   /app01/table"}
+{"level":"info","component":"health","time":"2024-10-06T00:14:35+08:00","caller":"restful/api.go:34        ","message":"Get the Health using http://127.0.0.1:8080/health"}
+{"level":"info","component":"swagger","time":"2024-10-06T00:14:35+08:00","caller":"restful/api.go:30        ","message":"Get the API doc using http://127.0.0.1:8080/swagger/doc.json "}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:35+08:00","caller":"server/server.go:56      ","message":"loaded configs: [app log trace restful-framework datasource cors grpc http]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:35+08:00","caller":"server/server.go:57      ","message":"loaded defaults: []"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:35+08:00","caller":"server/server.go:58      ","message":"loaded controllers: [app01]"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:35+08:00","caller":"server/server.go:59      ","message":"loaded apis: [metrics app01 health swagger]"}
+{"level":"info","component":"http","time":"2024-10-06T00:14:35+08:00","caller":"http/http.go:62          ","message":"Started HttpServer at: 127.0.0.1:8080"}
+{"level":"info","component":"grpc","time":"2024-10-06T00:14:35+08:00","caller":"grpc/rpc.go:67           ","message":"Started GrpcServer at: 127.0.0.1:18080"}
+{"level":"info","component":"application-server","time":"2024-10-06T00:14:43+08:00","caller":"server/server.go:78      ","message":"receive signal 'interrupt', start graceful shutdown"}
+{"level":"error","component":"http","time":"2024-10-06T00:14:43+08:00","caller":"http/http.go:64          ","message":"http: Server closed"}
+{"level":"info","component":"http","time":"2024-10-06T00:14:43+08:00","caller":"http/http.go:71          ","message":"Shutdown HttpServer Complete"}

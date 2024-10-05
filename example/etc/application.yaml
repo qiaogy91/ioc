@@ -1,0 +1,73 @@
+app:
+  name: "app01"
+  description: "案例项目演示"
+  domain: "example.com"
+
+gin-framework:
+#  mode: release
+  mode: debug
+http:
+  enable: true
+  trace: true
+  host: 127.0.0.1
+  port: 8080
+  readHeaderTimeout: 30
+  readTimeout: 60
+  writeTimeout: 60
+  idleTimeout: 300
+  maxHeaderSize: "16kb"
+
+grpc:
+  enable: true
+  host: 127.0.0.1
+  port: 18080
+  token: "my-token-str"
+
+cors:
+  enabled: true
+  allowedHeaders: [ "*" ]
+  allowedMethods: [ "*" ]
+  allowOrigins: [ "*" ]
+  allowedDomains: [ ".*" ]
+  exposeHeaders: [ ]
+  allowCookies: false
+  maxAge: 43200
+
+datasource:
+  trace: true
+  host: "127.0.0.1"
+  port: 3306
+  database: "ioc"
+  username: "root"
+  password: "redhat"
+  debug: true
+
+
+log:
+  callerDeep: 2
+  level: debug
+  noColor: false
+  filePath: "logs/app.log"
+  maxSize: 10
+  maxBackups: 6
+  maxAge: 30
+  compress: false
+
+
+metrics:
+  apiStatusEnable: true
+  requestHistogram: true
+  requestHistogramName: "http_request_duration_histogram"
+  requestHistogramBucket: [ 1, 2, 3, 4, 5, 6, 7 ]
+  requestSummary: true
+  requestSummaryName: "http_request_duration_summary"
+  requestSummaryObjective: [ 0.5, 0.9, 0.99 ]
+  requestTotal: true
+  requestTotalName: "http_request_total"
+
+
+trace:
+  enable: true
+  endpoint: "127.0.0.1:4318"
+  insecure: true
+
