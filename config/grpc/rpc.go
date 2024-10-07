@@ -72,6 +72,7 @@ func (s *Server) Start(ctx context.Context) {
 
 func (s *Server) Stop(ctx context.Context) error {
 	s.server.GracefulStop()
+	s.log.Info().Msg("Shutdown GrpcServer Complete")
 	return nil
 }
 

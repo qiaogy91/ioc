@@ -32,14 +32,6 @@ var startCmd = &cobra.Command{
 
 func Execute() {
 	cobra.OnInitialize(func() {
-		switch confType {
-		case "file":
-			configReq.ConfigFile.Enabled = true
-			configReq.ConfigFile.Path = confFile
-		default:
-			configReq.ConfigEnv.Enabled = true
-		}
-
 		// 初始化ioc
 		cobra.CheckErr(ioc.ConfigIocObject(configReq))
 

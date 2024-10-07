@@ -16,16 +16,7 @@ const (
 	AppName = "application-server"
 )
 
-var configReq = &ioc.LoadConfigReq{
-	ConfigFile: &ioc.ConfigFile{
-		Enabled: true,
-		Path:    "etc/application.yaml",
-	},
-	ConfigEnv: &ioc.ConfigEnv{
-		Enabled: false,
-		Prefix:  "",
-	},
-}
+var configReq = "etc/application.yaml"
 
 type Server struct {
 	http   *http.Http

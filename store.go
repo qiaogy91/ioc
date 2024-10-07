@@ -43,20 +43,9 @@ func (c *Container) Namespace(ns string) *NamespaceStore {
 	return newStore
 }
 
-func (c *Container) LoadConfig(req *LoadConfigReq) {
-	// 优先加载环境变量
-	if req.ConfigEnv.Enabled {
-		for i := range c.store {
-			item := c.store[i]
-			item.LoadFromEnv(req.ConfigEnv.Prefix)
-		}
-	}
-
-	// 再加载配置文件
-	if req.ConfigFile.Enabled {
-		for _, item := range c.store {
-			item.LoadFromFile(req.ConfigFile.Path)
-		}
+func (c *Container) LoadConfig(filePath string) {
+	for _, item := range c.store {
+		item.LoadFromFile(filePath)
 	}
 }
 
