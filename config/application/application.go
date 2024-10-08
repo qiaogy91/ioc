@@ -13,14 +13,11 @@ type Application struct {
 	Domain         string `json:"domain" yaml:"domain" toml:"domain" env:"DOMAIN"`
 }
 
-func (a *Application) Name() string {
-	return AppName
-}
-
+func (a *Application) Name() string { return AppName }
 func (a *Application) Priority() int {
 	return 101
 }
-
+func (a *Application) ApplicationName() string { return a.AppName }
 func init() {
 	ioc.Config().Registry(&Application{})
 }

@@ -42,7 +42,7 @@ func (t *Trace) Init() {
 
 	// resource 标注当前服务
 	res, _ := resource.Merge(resource.Default(),
-		resource.NewWithAttributes(semconv.SchemaURL, semconv.ServiceNameKey.String(application.Get().Name())),
+		resource.NewWithAttributes(semconv.SchemaURL, semconv.ServiceNameKey.String(application.Get().ApplicationName())),
 	)
 	// exporter
 	exporter, err := otlptracehttp.New(context.Background(), t.options()...)
