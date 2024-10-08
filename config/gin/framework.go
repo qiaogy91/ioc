@@ -29,10 +29,10 @@ func (f *Framework) Priority() int {
 }
 
 func (f *Framework) Init() {
+	gin.SetMode(f.Mode) // 设置模式要在Engine 初始化之前完成，否则不生效
 	f.log = log.Sub(AppName)
 	f.Engine = gin.Default()
 	f.Engine.Use(gin.Recovery())
-	gin.SetMode(f.Mode)
 
 	// 注册给Http服务器
 	serv := http.Get()
