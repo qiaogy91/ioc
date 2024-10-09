@@ -36,7 +36,7 @@ func Execute() {
 		cobra.CheckErr(ioc.ConfigIocObject(configReq))
 
 		// 补充Root命令信息
-		Root.Use = application.Get().AppName
+		Root.Use = application.Get().ApplicationName()
 		Root.Short = application.Get().AppDescription
 		Root.Long = application.Get().AppDescription
 	})

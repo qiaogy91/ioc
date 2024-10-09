@@ -14,7 +14,7 @@ func (h *Handler) BuildSwagger() restfulspec.Config {
 		PostBuildSwaggerObjectHandler: func(s *spec.Swagger) {
 			s.Info = &spec.Info{
 				InfoProps: spec.InfoProps{
-					Title:       application.Get().AppName,
+					Title:       application.Get().ApplicationName(),
 					Description: application.Get().AppDescription,
 					License: &spec.License{
 						LicenseProps: spec.LicenseProps{

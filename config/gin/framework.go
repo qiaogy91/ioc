@@ -40,7 +40,7 @@ func (f *Framework) Init() {
 
 	// 开启Trace
 	if serv.Trace && trace.Get().Enable {
-		f.Engine.Use(otelgin.Middleware(application.Get().Name()))
+		f.Engine.Use(otelgin.Middleware(application.Get().ApplicationName()))
 		f.log.Info().Msg("gin trace enabled")
 	}
 }

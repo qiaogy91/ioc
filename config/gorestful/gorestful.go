@@ -37,7 +37,7 @@ func (f *Framework) Init() {
 
 	// 开启Trace
 	if serv.Trace && trace.Get().Enable {
-		f.Container.Filter(otelrestful.OTelFilter(application.Get().Name()))
+		f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
 		f.log.Info().Msg("restful trace enabled")
 	}
 }
