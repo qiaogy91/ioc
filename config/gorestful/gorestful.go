@@ -6,7 +6,7 @@ import (
 	"github.com/qiaogy91/ioc/config/application"
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/qiaogy91/ioc/config/trace"
+	"github.com/qiaogy91/ioc/config/otlp"
 	"github.com/rs/zerolog"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful"
 )
@@ -36,7 +36,12 @@ func (f *Framework) Init() {
 	serv.SetRouter(f.Container)
 
 	// 开启Trace
-	if serv.Trace && trace.Get().Enable {
+	//if serv.Trace && trace.Get().Enable {
+	//	f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
+	//	f.log.Info().Msg("restful trace enabled")
+	//}
+	// 替换为otlp trace
+	if serv.Trace && otlp.Get().Enabled {
 		f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
 		f.log.Info().Msg("restful trace enabled")
 	}

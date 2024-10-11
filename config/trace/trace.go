@@ -56,8 +56,16 @@ func (t *Trace) Init() {
 		trace.WithSpanProcessor(trace.NewBatchSpanProcessor(exporter)), // span processor
 	)
 
-	otel.SetTracerProvider(provider)                                                                                        // 注册到全局 global
-	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(propagation.Baggage{}, propagation.TraceContext{})) // 定义上下文传播方式：传递额外的上下文信息、准的 context 上下文信息
+	// 注册到全局 global
+	otel.SetTracerProvider(provider)
+
+	// 定义上下文传播方式：传递额外的上下文信息、准的 context 上下文信息
+	otel.SetTextMapPropagator(
+		propagation.NewCompositeTextMapPropagator(
+			propagation.Baggage{},
+			propagation.TraceContext{},
+		),
+	)
 	t.provider = provider
 }
 

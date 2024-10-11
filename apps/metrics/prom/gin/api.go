@@ -14,14 +14,10 @@ const AppName = "metrics"
 type Handler struct {
 	ioc.ObjectImpl
 	log                     *zerolog.Logger
-	ApiStatusEnable         bool      `json:"apiStatusEnable" yaml:"apiStatusEnable"`                 // 是否开启内置的 api status 指标统计
-	RequestHistogram        bool      `json:"requestHistogram" yaml:"requestHistogram"`               // Histogram 类型标签，是否开启
 	RequestHistogramName    string    `json:"requestHistogramName" yaml:"requestHistogramName"`       // Histogram 标签名称
 	RequestHistogramBucket  []float64 `json:"requestHistogramBucket" yaml:"requestHistogramBucket"`   // Histogram bucket 边界
-	RequestSummary          bool      `json:"requestSummary" yaml:"requestSummary"`                   // Summary 类型标签，是否开启
 	RequestSummaryName      string    `json:"requestSummaryName" yaml:"requestSummaryName"`           // Summary 标签名称
 	RequestSummaryObjective []float64 `json:"requestSummaryObjective" yaml:"requestSummaryObjective"` // Summary bucket 边界
-	RequestTotal            bool      `json:"requestTotal" yaml:"requestTotal"`                       // Counter 类型标签，是否开启
 	RequestTotalName        string    `json:"requestTotalName" yaml:"requestTotalName"`               // Counter 标签名称
 
 	// 三个指标

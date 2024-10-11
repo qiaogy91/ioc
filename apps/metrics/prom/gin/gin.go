@@ -1,15 +1,15 @@
 package gin
 
 import (
-	"github.com/emicklei/go-restful/v3"
+	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"strconv"
 	"time"
 )
 
-func (h *Handler) MetricHandler(req *restful.Request, rsp *restful.Response) {
-	promhttp.Handler().ServeHTTP(rsp, req.Request)
+func (h *Handler) MetricHandler(ctx *gin.Context) {
+	promhttp.Handler().ServeHTTP(ctx.Writer, ctx.Request)
 }
 
 // Objectives 偏差计算
@@ -57,42 +57,23 @@ func (h *Handler) CollectInit() {
 
 // Describe 获取指标描述
 func (h *Handler) Describe(ch chan<- *prometheus.Desc) {
-	if h.RequestHistogram {
-		h.HttpRequestDurationHistogram.Describe(ch)
-	}
-	if h.RequestSummary {
-		h.HttpRequestDurationSummary.Describe(ch)
-	}
-	if h.RequestTotal {
-		h.HttpRequestTotal.Describe(ch)
-	}
+	h.HttpRequestDurationHistogram.Describe(ch)
+	h.HttpRequestDurationSummary.Describe(ch)
+	h.HttpRequestTotal.Describe(ch)
 }
 
 // Collect 获取指标值
 func (h *Handler) Collect(ch chan<- prometheus.Metric) {
-	if h.RequestHistogram {
-		h.HttpRequestDurationHistogram.Collect(ch)
-	}
-	if h.RequestSummary {
-		h.HttpRequestDurationSummary.Collect(ch)
-	}
-	if h.RequestTotal {
-		h.HttpRequestTotal.Collect(ch)
-	}
+	h.HttpRequestDurationHistogram.Collect(ch)
+	h.HttpRequestDurationSummary.Collect(ch)
+	h.HttpRequestTotal.Collect(ch)
 }
 
-func (h *Handler) MetricMiddleware(req *restful.Request, rsp *restful.Response, chain *restful.FilterChain) {
+func (h *Handler) MetricMiddleware(ctx *gin.Context) {
 	start := time.Now()
 
-	chain.ProcessFilter(req, rsp)
-
-	if h.RequestTotal {
-		h.HttpRequestTotal.WithLabelValues(req.Request.Method, req.SelectedRoutePath(), strconv.Itoa(rsp.StatusCode())).Inc()
-	}
-	if h.RequestSummary {
-		h.HttpRequestDurationSummary.WithLabelValues(req.Request.Method, req.SelectedRoutePath()).Observe(time.Since(start).Seconds())
-	}
-	if h.RequestHistogram {
-		h.HttpRequestDurationHistogram.WithLabelValues(req.Request.Method, req.SelectedRoutePath()).Observe(time.Since(start).Seconds())
-	}
+	ctx.Next()
+	h.HttpRequestTotal.WithLabelValues(ctx.Request.Method, ctx.FullPath(), strconv.Itoa(ctx.Writer.Status())).Inc()
+	h.HttpRequestDurationSummary.WithLabelValues(ctx.Request.Method, ctx.FullPath()).Observe(time.Since(start).Seconds())
+	h.HttpRequestDurationHistogram.WithLabelValues(ctx.Request.Method, ctx.FullPath()).Observe(time.Since(start).Seconds())
 }

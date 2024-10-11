@@ -8,9 +8,9 @@ var _ ioc.ObjectInterface = &Application{}
 
 type Application struct {
 	ioc.ObjectImpl
-	AppName        string `json:"name" yaml:"name" toml:"name" env:"NAME"`
-	AppDescription string `json:"description" yaml:"description" toml:"description" env:"DESCRIPTION"`
-	Domain         string `json:"domain" yaml:"domain" toml:"domain" env:"DOMAIN"`
+	AppName        string `json:"appName" yaml:"appName"`
+	AppDescription string `json:"description" yaml:"description"`
+	Domain         string `json:"domain" yaml:"domain"`
 }
 
 func (a *Application) Name() string { return AppName }
