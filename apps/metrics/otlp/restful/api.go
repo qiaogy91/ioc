@@ -7,6 +7,7 @@ import (
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
 	"github.com/rs/zerolog"
+	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/metric"
 )
 
@@ -26,15 +27,19 @@ func (h *Handler) Name() string  { return AppName }
 func (h *Handler) Priority() int { return 401 }
 func (h *Handler) Init() {
 	h.log = log.Sub(AppName)
-	h.MetricRegistry() // 指标注册
 
+	// 从全局Provider 中获取一个 meter provider 来注册metric 指标
+	meter := otel.Meter(AppName)
+	h.MetricRegistry(meter)
+	gorestful.RootContainer().Filter(h.MetricMiddleware) // 加载指标中间件，用来更新metric 指标值
+
+	// 将 OpenTelemetry Metric 指标暴露到restful api 中
 	r := gorestful.ModuleWebservice(h)
 	r.Route(r.GET("").To(h.MetricHandler).
 		Doc("指标暴露").
 		Metadata(restfulspec.KeyOpenAPITags, []string{"指标监控"}),
 	)
 
-	gorestful.RootContainer().Filter(h.MetricMiddleware)
 	h.log.Info().Msgf("Get the Metric using http://%s/%s", http.Get().Addr(), h.Name())
 }
 

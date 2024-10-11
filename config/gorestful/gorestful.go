@@ -9,6 +9,7 @@ import (
 	"github.com/qiaogy91/ioc/config/otlp"
 	"github.com/rs/zerolog"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful"
+	"time"
 )
 
 type Framework struct {
@@ -35,6 +36,8 @@ func (f *Framework) Init() {
 	serv := http.Get()
 	serv.SetRouter(f.Container)
 
+	f.Container.Filter(f.AccessLog)
+
 	// 开启Trace
 	//if serv.Trace && trace.Get().Enable {
 	//	f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
@@ -45,6 +48,20 @@ func (f *Framework) Init() {
 		f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
 		f.log.Info().Msg("restful trace enabled")
 	}
+}
+
+func (f *Framework) AccessLog(r *restful.Request, w *restful.Response, chain *restful.FilterChain) {
+	f.log = log.Sub("accessLog")
+	start := time.Now()
+	chain.ProcessFilter(r, w)
+
+	// 返回Response 时记录日志
+	f.log.Info().Msgf("%-20s | %-15s | %-5d | %-10s | %s",
+		time.Since(start),
+		r.Request.RemoteAddr,
+		w.StatusCode(),
+		r.Request.Method,
+		r.Request.URL.Path)
 }
 
 func init() {

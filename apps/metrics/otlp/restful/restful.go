@@ -3,7 +3,7 @@ package restful
 import (
 	"github.com/emicklei/go-restful/v3"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"go.opentelemetry.io/otel"
+	"github.com/qiaogy91/ioc/config/application"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/metric"
 	"time"
@@ -14,19 +14,18 @@ func (h *Handler) MetricHandler(req *restful.Request, rsp *restful.Response) {
 }
 
 // MetricRegistry 创建指标
-func (h *Handler) MetricRegistry() {
+func (h *Handler) MetricRegistry(meter metric.Meter) {
 	var err error
-	var meter = otel.Meter(AppName)
 	h.HttpRequestDurationHistogram, err = meter.Float64Histogram(
 		h.RequestHistogramName,
 		metric.WithDescription("Duration of HTTP requests"),
-		metric.WithUnit("s"),
+		metric.WithUnit("{seconds}"),
 	)
 
 	h.HttpRequestTotal, err = meter.Int64Counter(
 		h.RequestTotalName,
 		metric.WithDescription("Total number of HTTP requests"),
-		metric.WithUnit("count"),
+		metric.WithUnit("{call}"),
 	)
 
 	if err != nil {
@@ -41,11 +40,13 @@ func (h *Handler) MetricMiddleware(req *restful.Request, rsp *restful.Response, 
 	chain.ProcessFilter(req, rsp)
 
 	h.HttpRequestTotal.Add(req.Request.Context(), 1, metric.WithAttributes(
+		attribute.String("service", application.Get().AppName),
 		attribute.String("method", req.Request.Method),
 		attribute.String("path", req.SelectedRoutePath())),
 	)
 
 	h.HttpRequestDurationHistogram.Record(req.Request.Context(), time.Since(start).Seconds(), metric.WithAttributes(
+		attribute.String("service", application.Get().AppName),
 		attribute.String("method", req.Request.Method),
 		attribute.String("path", req.SelectedRoutePath()),
 	))

@@ -4,19 +4,20 @@ import (
 	"context"
 	"errors"
 	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config/log"
 	"github.com/rs/zerolog"
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/log/global"
 	"go.opentelemetry.io/otel/propagation"
 )
 
 type Impl struct {
 	ioc.ObjectImpl
-	log         *zerolog.Logger
-	Enabled     bool   `json:"enabled" yaml:"enabled"`
-	Endpoint    string `json:"endpoint" yaml:"endpoint"`
-	Insecure    bool   `json:"insecure" yaml:"insecure"`
-	shutdownFns []func(ctx context.Context) error
+	log          *zerolog.Logger
+	Enabled      bool   `json:"enabled" yaml:"enabled"`
+	HttpEndpoint string `json:"httpEndpoint" yaml:"httpEndpoint"`
+	GrpcEndpoint string `json:"grpcEndpoint" yaml:"grpcEndpoint"`
+	Insecure     bool   `json:"insecure" yaml:"insecure"`
+	shutdownFns  []func(ctx context.Context) error
 }
 
 func (i *Impl) Name() string  { return AppName }
@@ -30,10 +31,9 @@ func (i *Impl) Close(ctx context.Context) error {
 }
 
 func (i *Impl) Init() {
+	i.log = log.Sub(AppName)
 	// 注册全局 provider
-	otel.SetTracerProvider(i.newTraceProvider())
-	otel.SetMeterProvider(i.newMeterProvider())
-	global.SetLoggerProvider(i.newLoggerProvider())
+	i.RegistryProvider(context.Background())
 
 	// 定义上下文传播方式：传递额外的上下文信息、准的 context 上下文信息
 	otel.SetTextMapPropagator(

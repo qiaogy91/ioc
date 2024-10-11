@@ -1,6 +1,7 @@
 package restful
 
 import (
+	restfulspec "github.com/emicklei/go-restful-openapi/v2"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/gorestful"
 	"github.com/qiaogy91/ioc/config/http"
@@ -25,7 +26,11 @@ func (h *Handler) Init() {
 
 	// 路由注册
 	ws := gorestful.ModuleWebservice(h)
-	ws.Route(ws.GET("doc.json").To(h.restfulSwagger))
+	ws.Route(
+		ws.GET("doc.json").To(h.restfulSwagger).
+			Doc("查询文档信息").
+			Metadata(restfulspec.KeyOpenAPITags, []string{"API 文档"}),
+	)
 
 	h.log.Info().Msgf("Get the API doc using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json ")
 }

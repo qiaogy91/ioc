@@ -3,11 +3,15 @@ package otlp
 import (
 	"context"
 	"github.com/qiaogy91/ioc/config/application"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp"
+	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp"
-	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
 	"go.opentelemetry.io/otel/exporters/prometheus"
+	"go.opentelemetry.io/otel/log/global"
 	"go.opentelemetry.io/otel/sdk/log"
 	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/sdk/resource"
@@ -43,87 +47,98 @@ func (i *Impl) newResource() *resource.Resource {
 	return finalRes
 }
 
-// Exporter
-func (i *Impl) newTracerExporter(ctx context.Context) *otlptrace.Exporter {
-	// opts
-	var opts []otlptracehttp.Option
-	opts = append(opts, otlptracehttp.WithEndpoint(i.Endpoint))
+func (i *Impl) getHttpExporter(ctx context.Context) (t trace.SpanExporter, m metric.Exporter, l log.Exporter, p *prometheus.Exporter) {
+	var (
+		traceOpts  []otlptracehttp.Option
+		metricOpts []otlpmetrichttp.Option
+		logOpts    []otlploghttp.Option
+		err        error
+	)
+	// options
+	traceOpts = append(traceOpts, otlptracehttp.WithEndpoint(i.HttpEndpoint))
+	metricOpts = append(metricOpts, otlpmetrichttp.WithEndpoint(i.HttpEndpoint))
+	logOpts = append(logOpts, otlploghttp.WithEndpoint(i.HttpEndpoint))
 	if i.Insecure {
-		opts = append(opts, otlptracehttp.WithInsecure())
+		traceOpts = append(traceOpts, otlptracehttp.WithInsecure())
+		metricOpts = append(metricOpts, otlpmetrichttp.WithInsecure())
+		logOpts = append(logOpts, otlploghttp.WithInsecure())
 	}
+	// exporters
+	t, err = otlptracehttp.New(ctx, traceOpts...)
+	m, err = otlpmetrichttp.New(ctx, metricOpts...)
+	l, err = otlploghttp.New(ctx, logOpts...)
+	p, err = prometheus.New()
 
-	// exporter
-	exp, err := otlptracehttp.New(ctx, opts...)
 	if err != nil {
 		panic(err)
 	}
-	return exp
+	return
 }
 
-func (i *Impl) newMeterExporter(ctx context.Context) (*otlpmetrichttp.Exporter, *prometheus.Exporter) {
-	// opts
-	var opts []otlpmetrichttp.Option
+func (i *Impl) getGrpcExporter(ctx context.Context) (t trace.SpanExporter, m metric.Exporter, l log.Exporter, p *prometheus.Exporter) {
+	var (
+		traceOpts  []otlptracegrpc.Option
+		metricOpts []otlpmetricgrpc.Option
+		logOpts    []otlploggrpc.Option
+		err        error
+	)
+	// options
+	traceOpts = append(traceOpts, otlptracegrpc.WithEndpoint(i.GrpcEndpoint))
+	metricOpts = append(metricOpts, otlpmetricgrpc.WithEndpoint(i.GrpcEndpoint))
+	logOpts = append(logOpts, otlploggrpc.WithEndpoint(i.GrpcEndpoint))
 	if i.Insecure {
-		opts = append(opts, otlpmetrichttp.WithInsecure())
+		traceOpts = append(traceOpts, otlptracegrpc.WithInsecure())
+		metricOpts = append(metricOpts, otlpmetricgrpc.WithInsecure())
+		logOpts = append(logOpts, otlploggrpc.WithInsecure())
 	}
-	opts = append(opts, otlpmetrichttp.WithEndpoint(i.Endpoint))
+	// exporters
+	t, err = otlptracegrpc.New(ctx, traceOpts...)
+	m, err = otlpmetricgrpc.New(ctx, metricOpts...)
+	l, err = otlploggrpc.New(ctx, logOpts...)
+	p, err = prometheus.New()
 
-	// otlp exporter
-	otlpExp, err := otlpmetrichttp.New(ctx, opts...)
 	if err != nil {
 		panic(err)
 	}
-	// prom exporter
-	promExp, err := prometheus.New()
-	if err != nil {
-		panic(err)
-	}
-	return otlpExp, promExp
+	return
 }
 
-func (i *Impl) newLoggerExporter(ctx context.Context) *otlploghttp.Exporter {
-	// opts
-	var opts []otlploghttp.Option
-	if i.Insecure {
-		opts = append(opts, otlploghttp.WithInsecure())
-	}
-	opts = append(opts, otlploghttp.WithEndpoint(i.Endpoint))
-
-	// exporter
-	exp, err := otlploghttp.New(ctx, opts...)
-	if err != nil {
-		panic(err)
-	}
-	return exp
-}
-
-// Provider
-func (i *Impl) newTraceProvider() *trace.TracerProvider {
-	provider := trace.NewTracerProvider(
-		trace.WithSampler(trace.TraceIDRatioBased(0.5)),              // 采样率
-		trace.WithBatcher(i.newTracerExporter(context.Background())), // 批量导出
-		trace.WithResource(i.newResource()),                          // 资源信息
+func (i *Impl) RegistryProvider(ctx context.Context) {
+	var (
+		t trace.SpanExporter
+		m metric.Exporter
+		l log.Exporter
+		p *prometheus.Exporter
 	)
 
-	i.shutdownFns = append(i.shutdownFns, provider.Shutdown)
-	return provider
-}
+	switch i.GrpcEndpoint != "" {
+	case true:
+		t, m, l, p = i.getGrpcExporter(ctx)
 
-func (i *Impl) newMeterProvider() *metric.MeterProvider {
-	otlpExp, promExp := i.newMeterExporter(context.Background())
-	provider := metric.NewMeterProvider(
-		metric.WithReader(metric.NewPeriodicReader(otlpExp, metric.WithInterval(30*time.Second))),
-		metric.WithReader(promExp),
+	case false:
+		t, m, l, p = i.getHttpExporter(ctx)
+	}
+
+	// trace
+	traceProvider := trace.NewTracerProvider(
+		trace.WithSampler(trace.TraceIDRatioBased(0.5)), // 采样率
+		trace.WithBatcher(t),                            // 批量导出
+		trace.WithResource(i.newResource()),             // 资源信息
 	)
-	i.shutdownFns = append(i.shutdownFns, provider.Shutdown)
-	return provider
-}
-
-func (i *Impl) newLoggerProvider() *log.LoggerProvider {
-	provider := log.NewLoggerProvider(
-		log.WithProcessor(log.NewBatchProcessor(i.newLoggerExporter(context.Background()))),
+	// metric
+	meterProvider := metric.NewMeterProvider(
+		metric.WithReader(metric.NewPeriodicReader(m, metric.WithInterval(30*time.Second))), // 周期性导出
+		metric.WithReader(p), // prometheus 导出
+		metric.WithResource(i.newResource()),
 	)
+	// log
+	logProvider := log.NewLoggerProvider(
+		log.WithProcessor(log.NewBatchProcessor(l)), // 批量导出
+		log.WithResource(i.newResource()),           // 资源信息
+	)
+	i.shutdownFns = append(i.shutdownFns, traceProvider.Shutdown, logProvider.Shutdown, meterProvider.Shutdown)
 
-	i.shutdownFns = append(i.shutdownFns, provider.Shutdown)
-	return provider
+	otel.SetTracerProvider(traceProvider)
+	global.SetLoggerProvider(logProvider)
+	otel.SetMeterProvider(meterProvider)
 }
