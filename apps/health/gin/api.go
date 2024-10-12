@@ -5,14 +5,14 @@ import (
 	iocgin "github.com/qiaogy91/ioc/config/gin"
 	iochttp "github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
+	"log/slog"
 )
 
 const AppName = "health"
 
 type Handler struct {
 	ioc.ObjectImpl
-	log *zerolog.Logger
+	log *slog.Logger
 }
 
 func (h *Handler) Name() string  { return AppName }
@@ -25,7 +25,7 @@ func (h *Handler) Init() {
 	r := iocgin.ModuleRouter(h)
 	r.GET("", h.HealthHandler)
 
-	h.log.Info().Msgf("Get the Health using http://%s/%s", iochttp.Get().Addr(), h.Name())
+	h.log.Info("Get the Health using http://%s/%s", iochttp.Get().Addr(), h.Name())
 }
 
 func init() {

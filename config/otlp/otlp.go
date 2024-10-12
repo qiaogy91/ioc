@@ -5,14 +5,14 @@ import (
 	"errors"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
+	"log/slog"
 )
 
 type Impl struct {
 	ioc.ObjectImpl
-	log          *zerolog.Logger
+	log          *slog.Logger
 	Enabled      bool   `json:"enabled" yaml:"enabled"`
 	HttpEndpoint string `json:"httpEndpoint" yaml:"httpEndpoint"`
 	GrpcEndpoint string `json:"grpcEndpoint" yaml:"grpcEndpoint"`
@@ -42,7 +42,7 @@ func (i *Impl) Init() {
 			propagation.TraceContext{},
 		),
 	)
-
+	i.log.Info("OpenTelemetry provider registered")
 }
 
 func init() {

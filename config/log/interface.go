@@ -2,7 +2,7 @@ package log
 
 import (
 	"github.com/qiaogy91/ioc"
-	"github.com/rs/zerolog"
+	"log/slog"
 )
 
 const (
@@ -10,6 +10,10 @@ const (
 	SubLoggerKey = "component"
 )
 
-func Sub(name string) *zerolog.Logger {
-	return ioc.Config().Get(AppName).(*Logger).Logger(name)
+func Sub(name string) *slog.Logger {
+	return ioc.Config().Get(AppName).(*Logger).SubLogger(name)
+}
+
+func TextHandler() *slog.TextHandler {
+	return ioc.Config().Get(AppName).(*Logger).HandlerConsole()
 }

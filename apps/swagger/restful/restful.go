@@ -5,6 +5,7 @@ import (
 	"github.com/emicklei/go-restful/v3"
 	"github.com/go-openapi/spec"
 	"github.com/qiaogy91/ioc/config/application"
+	"log/slog"
 )
 
 // BuildSwagger 定义swagger 配置
@@ -37,6 +38,6 @@ func (h *Handler) BuildSwagger() restfulspec.Config {
 func (h *Handler) restfulSwagger(request *restful.Request, response *restful.Response) {
 	swagger := restfulspec.BuildSwagger(h.BuildSwagger())
 	if err := response.WriteAsJson(swagger); err != nil {
-		h.log.Error().Msgf("swagger writeAsJson failed, %s", err)
+		h.log.Error("swagger writeAsJson failed", slog.Any("err", err))
 	}
 }

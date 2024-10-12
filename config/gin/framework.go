@@ -7,8 +7,8 @@ import (
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
 	"github.com/qiaogy91/ioc/config/trace"
-	"github.com/rs/zerolog"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
+	"log/slog"
 )
 
 var _ ioc.ObjectInterface = &Framework{}
@@ -17,7 +17,7 @@ type Framework struct {
 	ioc.ObjectImpl
 	Mode   string `toml:"mode" json:"mode" yaml:"mode" env:"Mode"` // gin mode
 	Engine *gin.Engine
-	log    *zerolog.Logger
+	log    *slog.Logger
 }
 
 func (f *Framework) Name() string {
@@ -41,7 +41,7 @@ func (f *Framework) Init() {
 	// 开启Trace
 	if serv.Trace && trace.Get().Enable {
 		f.Engine.Use(otelgin.Middleware(application.Get().ApplicationName()))
-		f.log.Info().Msg("gin trace enabled")
+		f.log.Info("Gin trace enabled")
 	}
 }
 

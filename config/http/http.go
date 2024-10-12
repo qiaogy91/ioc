@@ -6,7 +6,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
+	"log/slog"
 	"net/http"
 	"time"
 )
@@ -25,7 +25,7 @@ type Http struct {
 	Trace             bool   `json:"trace" yaml:"trace"`                                                   // 是否开启Trace
 
 	ioc.ObjectImpl
-	log            *zerolog.Logger
+	log            *slog.Logger
 	router         http.Handler
 	server         *http.Server
 	maxHeaderBytes uint64 // 解析后的数据
@@ -59,16 +59,17 @@ func (h *Http) Init() {
 }
 
 func (h *Http) Start(ctx context.Context) {
-	h.log.Info().Msgf("Started HttpServer at: %s", h.Addr())
+	h.log.Info(fmt.Sprintf("Started HttpServer at: %s", h.Addr()))
+
 	if err := h.server.ListenAndServe(); err != nil {
-		h.log.Error().Msg(err.Error())
+		h.log.Error("HttpServer Listen err", slog.Any("err", err))
 	}
 }
 func (h *Http) Stop(ctx context.Context) error {
 	if err := h.server.Shutdown(ctx); err != nil {
 		return fmt.Errorf("http graceful shutdown timeout, force exit")
 	}
-	h.log.Info().Msg("Shutdown HttpServer Complete")
+	h.log.Info("HttpServer Shutdown Complete")
 	return nil
 }
 

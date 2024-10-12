@@ -3,16 +3,16 @@ package kafka
 import (
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
 	"github.com/segmentio/kafka-go"
 	"github.com/segmentio/kafka-go/sasl"
 	"github.com/segmentio/kafka-go/sasl/scram"
+	"log/slog"
 	"time"
 )
 
 type Client struct {
 	ioc.ObjectImpl
-	log       *zerolog.Logger
+	log       *slog.Logger
 	Username  string   `json:"username" yaml:"username"`
 	Password  string   `json:"password" yaml:"password"`
 	Brokers   []string `json:"brokers" yaml:"brokers"`

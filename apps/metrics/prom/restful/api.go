@@ -1,20 +1,21 @@
 package gin
 
 import (
+	"fmt"
 	restfulspec "github.com/emicklei/go-restful-openapi/v2"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/gorestful"
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
+	"log/slog"
 )
 
 const AppName = "metrics"
 
 type Handler struct {
 	ioc.ObjectImpl
-	log                     *zerolog.Logger
+	log                     *slog.Logger
 	RequestHistogramName    string    `json:"requestHistogramName" yaml:"requestHistogramName"`       // Histogram 标签名称
 	RequestHistogramBucket  []float64 `json:"requestHistogramBucket" yaml:"requestHistogramBucket"`   // Histogram bucket 边界
 	RequestSummaryName      string    `json:"requestSummaryName" yaml:"requestSummaryName"`           // Summary 标签名称
@@ -44,7 +45,7 @@ func (h *Handler) Init() {
 
 	// 加载到全局中间件
 	gorestful.RootContainer().Filter(h.MetricMiddleware)
-	h.log.Info().Msgf("Get the Metric using http://%s/%s", http.Get().Addr(), h.Name())
+	h.log.Info(fmt.Sprintf("Get the Metric using http://%s/%s", http.Get().Addr(), h.Name()))
 }
 
 func init() {

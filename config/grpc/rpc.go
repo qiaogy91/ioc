@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"log/slog"
 	"net"
 	"slices"
 )
@@ -23,7 +23,7 @@ type Server struct {
 	Token  string `json:"token" yaml:"token"`
 	ioc.ObjectImpl
 	server *grpc.Server
-	log    *zerolog.Logger
+	log    *slog.Logger
 }
 
 func (s *Server) Name() string {
@@ -60,25 +60,25 @@ func (s *Server) Addr() string {
 func (s *Server) Start(ctx context.Context) {
 	lis, err := net.Listen("tcp", s.Addr())
 	if err != nil {
-		s.log.Error().Msgf("gRpc listen err, %s", err)
+		s.log.Error("GrpcServer listen err", slog.Any("err", err))
 		return
 	}
 
-	s.log.Info().Msgf("Started GrpcServer at: %s", s.Addr())
+	s.log.Info("GrpcServer Started", slog.String("addr", s.Addr()))
 	if err := s.server.Serve(lis); err != nil {
-		s.log.Error().Msgf("gRpc serve err, %s", err)
+		s.log.Error("GrpcServer serve err", slog.Any("err", err))
 	}
 }
 
 func (s *Server) Stop(ctx context.Context) error {
 	s.server.GracefulStop()
-	s.log.Info().Msg("Shutdown GrpcServer Complete")
+	s.log.Info("GrpcServer Shutdown Complete")
 	return nil
 }
 
 func (s *Server) Server() *grpc.Server {
 	if s.server == nil {
-		panic("gprc server not initital")
+		panic("GrpcServer server not initital")
 	}
 	return s.server
 }

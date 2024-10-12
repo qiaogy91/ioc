@@ -47,7 +47,7 @@ log:
   callerDeep: 2
   level: debug
   noColor: false
-  filePath: "logs/app.log"
+  filePath: "logs/app.log_bak"
   maxSize: 10
   maxBackups: 6
   maxAge: 30

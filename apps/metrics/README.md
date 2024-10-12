@@ -5,7 +5,7 @@
 ```shell
 ➜  ioc git:(main) ✗ tree apps/metrics -L 2
 apps/metrics
-├── README.md
+├── README.md.md
 ├── otlp
 │   ├── gin
 │   └── restful

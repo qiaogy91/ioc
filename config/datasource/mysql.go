@@ -6,10 +6,10 @@ import (
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
 	"github.com/qiaogy91/ioc/config/trace"
-	"github.com/rs/zerolog"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/plugin/opentelemetry/tracing"
+	"log/slog"
 )
 
 var _ ioc.ObjectInterface = &DataSource{}
@@ -25,7 +25,7 @@ type DataSource struct {
 	Debug    bool   `json:"debug" yaml:"debug" toml:"debug" env:"DEBUG"`
 
 	db  *gorm.DB
-	log *zerolog.Logger
+	log *slog.Logger
 }
 
 func (ds *DataSource) Name() string {
@@ -66,7 +66,7 @@ func (ds *DataSource) Init() {
 		if err := db.Use(tracing.NewPlugin(tracing.WithoutMetrics())); err != nil {
 			panic(err)
 		}
-		ds.log.Info().Msg("mysql trace enabled")
+		ds.log.Info("mysql trace enabled")
 	}
 }
 

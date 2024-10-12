@@ -6,7 +6,7 @@ import (
 	"github.com/qiaogy91/ioc/config/grpc"
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
+	"log/slog"
 	"os"
 	"os/signal"
 	"syscall"
@@ -22,7 +22,7 @@ type Server struct {
 	http   *http.Http
 	grpc   *grpc.Server
 	ch     chan os.Signal
-	log    *zerolog.Logger
+	log    *slog.Logger
 	ctx    context.Context
 	cancel context.CancelFunc
 }
@@ -44,10 +44,10 @@ func (s *Server) Run(ctx context.Context) error {
 
 	s.log = log.Sub(AppName)
 
-	s.log.Info().Msgf("loaded configs: %s", ioc.Config().List())
-	s.log.Info().Msgf("loaded defaults: %s", ioc.Default().List())
-	s.log.Info().Msgf("loaded controllers: %s", ioc.Controller().List())
-	s.log.Info().Msgf("loaded apis: %s", ioc.Api().List())
+	s.log.Info("config namespace", slog.Any("loaded", ioc.Config().List()))
+	s.log.Info("default namespace", slog.Any("loaded", ioc.Default().List()))
+	s.log.Info("controller namespace", slog.Any("loaded", ioc.Controller().List()))
+	s.log.Info("apis namespace", slog.Any("loaded", ioc.Api().List()))
 
 	if s.http.Enable {
 		go s.http.Start(ctx)
@@ -66,17 +66,17 @@ func (s *Server) waitSign() {
 	for sg := range s.ch {
 		switch v := sg.(type) {
 		default:
-			s.log.Info().Msgf("receive signal '%v', start graceful shutdown", v.String())
+			s.log.Info("graceful shutdown", slog.String("reason", v.String()))
 
 			if s.grpc.Enable {
 				if err := s.grpc.Stop(s.ctx); err != nil {
-					s.log.Error().Msgf("grpc graceful shutdown err: %s, force exit", err)
+					s.log.Error("graceful shutdown error", slog.Any("err", err))
 				}
 			}
 
 			if s.http.Enable {
 				if err := s.http.Stop(s.ctx); err != nil {
-					s.log.Error().Msgf("http graceful shutdown err: %s, force exit", err)
+					s.log.Error("http graceful shutdown error", slog.Any("err", err))
 				}
 			}
 			return

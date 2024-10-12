@@ -131,7 +131,7 @@ func (i *Impl) RegistryProvider(ctx context.Context) {
 		metric.WithReader(p), // prometheus 导出
 		metric.WithResource(i.newResource()),
 	)
-	// log
+	// log_bak
 	logProvider := log.NewLoggerProvider(
 		log.WithProcessor(log.NewBatchProcessor(l)), // 批量导出
 		log.WithResource(i.newResource()),           // 资源信息

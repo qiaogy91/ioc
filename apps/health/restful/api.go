@@ -1,19 +1,20 @@
 package restful
 
 import (
+	"fmt"
 	restfulspec "github.com/emicklei/go-restful-openapi/v2"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/gorestful"
 	iochttp "github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
+	"log/slog"
 )
 
 const AppName = "health"
 
 type Handler struct {
 	ioc.ObjectImpl
-	log  *zerolog.Logger
+	log  *slog.Logger
 	Path string `json:"path" yaml:"path"`
 }
 
@@ -31,7 +32,7 @@ func (h *Handler) Init() {
 		Metadata(restfulspec.KeyOpenAPITags, tags),
 	)
 
-	h.log.Info().Msgf("Get the Health using http://%s/%s", iochttp.Get().Addr(), h.Name())
+	h.log.Info(fmt.Sprintf("Get the Health using http://%s/%s", iochttp.Get().Addr(), h.Name()))
 }
 
 func init() {

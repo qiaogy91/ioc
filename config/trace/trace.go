@@ -5,7 +5,8 @@ import (
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/application"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
+	"log/slog"
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
 	"go.opentelemetry.io/otel/propagation"
@@ -16,7 +17,7 @@ import (
 
 type Trace struct {
 	ioc.ObjectImpl
-	log      *zerolog.Logger
+	log      *slog.Logger
 	Enable   bool   `json:"enable" yaml:"enable"`
 	Endpoint string `json:"endpoint" yaml:"endpoint"`
 	Insecure bool   `json:"insecure" yaml:"insecure"`

@@ -5,13 +5,13 @@ import (
 	"github.com/qiaogy91/ioc"
 	iocgin "github.com/qiaogy91/ioc/config/gin"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/rs/zerolog"
+	"log/slog"
 	"time"
 )
 
 type CORS struct {
 	ioc.ObjectImpl
-	log            *zerolog.Logger
+	log            *slog.Logger
 	Enabled        bool     `json:"enabled" yaml:"enabled"`
 	AllowedHeaders []string `json:"allowedHeaders" yaml:"allowedHeaders"`
 	AllowOrigins   []string `json:"allowOrigins" yaml:"allowOrigins"`
@@ -40,7 +40,7 @@ func (c *CORS) Init() {
 			MaxAge:           time.Duration(c.MaxAge) * time.Second,
 			AllowWildcard:    true,
 		}))
-		c.log.Info().Msg("gin cors enabled")
+		c.log.Info("Gin CORS enabled")
 	}
 }
 
