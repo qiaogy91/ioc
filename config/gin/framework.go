@@ -7,7 +7,7 @@ import (
 	"github.com/qiaogy91/ioc/config/application"
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/qiaogy91/ioc/config/trace"
+	"github.com/qiaogy91/ioc/config/otlp"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 	"log/slog"
 )
@@ -45,7 +45,7 @@ func (f *Framework) Init() {
 	serv.SetRouter(f.Engine)
 
 	// 开启Trace
-	if serv.Trace && trace.Get().Enable {
+	if serv.Trace && otlp.Get().Enabled {
 		f.Engine.Use(otelgin.Middleware(application.Get().ApplicationName()))
 		f.log.Info("Gin trace enabled")
 	}

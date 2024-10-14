@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	AppName = "gin-framework"
+	AppName = "framework"
 )
 
 func RootRouter() *gin.Engine {

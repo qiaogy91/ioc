@@ -14,33 +14,23 @@ import (
 )
 
 const (
-	AppName = "Ioc"
+	AppName     = "Ioc"
+	StopTimeout = 10 * time.Second
 )
 
 var configReq = "etc/application.yaml"
 
 type Server struct {
-	http   *http.Http
-	grpc   *grpc.Server
-	ch     chan os.Signal
-	log    *slog.Logger
-	ctx    context.Context
-	cancel context.CancelFunc
+	http *http.Http
+	grpc *grpc.Server
+	ch   chan os.Signal
+	log  *slog.Logger
 }
 
 func (s *Server) Run(ctx context.Context) error {
-	// 初始化ioc
-	//err := ioc.ConfigIocObject(configReq)
-	//if err != nil {
-	//	return err
-	//}
-
 	// 处理信号量
 	s.ch = make(chan os.Signal, 1)
 	signal.Notify(s.ch, syscall.SIGTERM, syscall.SIGINT, syscall.SIGHUP, syscall.SIGQUIT)
-
-	s.ctx, s.cancel = context.WithTimeout(context.Background(), 10*time.Second)
-
 	s.http = http.Get()
 	s.grpc = grpc.Get()
 
@@ -64,16 +54,20 @@ func (s *Server) Run(ctx context.Context) error {
 }
 
 func (s *Server) waitSign() {
-	defer s.cancel()
 	for sg := range s.ch {
 		switch v := sg.(type) {
 		default:
+			ctx, cancel := context.WithTimeout(context.Background(), StopTimeout)
+
 			// 遍历每个名称空间，执行所有对象的Close 方法
 			s.log.Info("receive a signal", slog.String("signal", v.String()))
 
-			if err := ioc.GetStore().Close(s.ctx); err != nil {
+			if err := ioc.GetStore().Close(ctx); err != nil {
 				s.log.Error("close error", slog.String("reason", err.Error()))
 			}
+
+			// 清理资源
+			cancel()
 			return
 		}
 	}
