@@ -1,12 +1,26 @@
 package restful
 
 import (
+	"fmt"
 	restfulspec "github.com/emicklei/go-restful-openapi/v2"
 	"github.com/emicklei/go-restful/v3"
 	"github.com/go-openapi/spec"
+	"github.com/qiaogy91/ioc/apps/swagger"
 	"github.com/qiaogy91/ioc/config/application"
+	"github.com/qiaogy91/ioc/config/http"
 	"log/slog"
 )
+
+func (h *Handler) docUI(r *restful.Request, w *restful.Response) {
+	w.Header().Set("Content-Type", "text/html")
+
+	docApi := fmt.Sprintf("http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json ")
+	docHtml := fmt.Sprintf(swagger.DocHtml, docApi)
+
+	if _, err := w.Write([]byte(docHtml)); err != nil {
+		h.log.Error("swagger writeAsJson failed", slog.Any("err", err))
+	}
+}
 
 // BuildSwagger 定义swagger 配置
 func (h *Handler) BuildSwagger() restfulspec.Config {
@@ -35,9 +49,9 @@ func (h *Handler) BuildSwagger() restfulspec.Config {
 	}
 }
 
-func (h *Handler) restfulSwagger(request *restful.Request, response *restful.Response) {
-	swagger := restfulspec.BuildSwagger(h.BuildSwagger())
-	if err := response.WriteAsJson(swagger); err != nil {
+func (h *Handler) dockJson(request *restful.Request, response *restful.Response) {
+	swg := restfulspec.BuildSwagger(h.BuildSwagger())
+	if err := response.WriteAsJson(swg); err != nil {
 		h.log.Error("swagger writeAsJson failed", slog.Any("err", err))
 	}
 }

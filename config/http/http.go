@@ -8,6 +8,7 @@ import (
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
 	"log/slog"
+	"net"
 	"net/http"
 	"time"
 )
@@ -78,7 +79,26 @@ func (h *Http) Close(ctx context.Context) error {
 }
 
 func (h *Http) Addr() string {
+	if h.Host == "0.0.0.0" {
+		// 如果用户配置的是 0.0.0.0 则从本地接口随便取出一个地址
+		inters, err := net.InterfaceAddrs()
+		if err != nil {
+			panic(err)
+		}
+		for _, addr := range inters {
+			// 获取 IP 地址
+			ipNet, ok := addr.(*net.IPNet)
+			if !ok || ipNet.IP.IsLoopback() {
+				continue
+			}
+			// 打印非回环的 IPv4 地址
+			if ip := ipNet.IP.To4(); ip != nil {
+				return fmt.Sprintf("%s:%d", ip, h.Port)
+			}
+		}
+	}
 	return fmt.Sprintf("%s:%d", h.Host, h.Port)
+
 }
 
 func (h *Http) SetRouter(r http.Handler) {

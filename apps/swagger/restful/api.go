@@ -27,15 +27,20 @@ func (h *Handler) Init() {
 	h.log = log.Sub(AppName)
 
 	// 路由注册
+	tags := []string{"API 文档"}
 	ws := gorestful.ModuleWebservice(h)
-	ws.Route(
-		ws.GET("doc.json").To(h.restfulSwagger).
-			Doc("查询文档信息").
-			Metadata(restfulspec.KeyOpenAPITags, []string{"API 文档"}),
-	)
+	ws.Route(ws.GET("doc.json").To(h.dockJson).
+		Doc("查询文档信息").
+		Metadata(restfulspec.KeyOpenAPITags, tags))
+
+	ws.Route(ws.GET("doc.ui").To(h.docUI).
+		Doc("查询文档面板").
+		Metadata(restfulspec.KeyOpenAPITags, tags))
 
 	h.log.Info(fmt.Sprintf("Get the API doc using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json "))
+	h.log.Info(fmt.Sprintf("Get the Redoc UI using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.ui "))
 }
+
 func (h *Handler) Close(ctx context.Context) error {
 	h.log.Info("closed completed", slog.String("namespace", ioc.ApiNamespace))
 	return nil
