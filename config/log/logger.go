@@ -1,6 +1,7 @@
 package log
 
 import (
+	"context"
 	"github.com/qiaogy91/ioc"
 	"go.opentelemetry.io/contrib/bridges/otelslog"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -29,7 +30,13 @@ type Logger struct {
 }
 
 func (l *Logger) Name() string  { return AppName }
-func (l *Logger) Priority() int { return 102 }
+func (l *Logger) Priority() int { return 101 }
+func (l *Logger) Close(ctx context.Context) error {
+
+	selfLog := l.SubLogger(AppName)
+	selfLog.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	return nil
+}
 
 func (l *Logger) replaceFilePath(filePath string, deep int) string {
 	parts := strings.Split(filepath.ToSlash(filePath), "/") // 将路径分割为目录部分

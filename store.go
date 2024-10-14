@@ -55,6 +55,19 @@ func (c *Container) Init() {
 		item.Init()
 	}
 }
+func (c *Container) Close(ctx context.Context) error {
+	var errs []string
+	sort.Sort(sort.Reverse(c))
+	for _, item := range c.store {
+		if err := item.Close(ctx); err != nil {
+			errs = append(errs, err.Error())
+		}
+	}
+	if len(errs) > 0 {
+		return fmt.Errorf("close object errs: %s", strings.Join(errs, "|"))
+	}
+	return nil
+}
 
 // NamespaceStore 容器接口实现
 type NamespaceStore struct {
@@ -63,6 +76,7 @@ type NamespaceStore struct {
 	Items     []ObjectInterface
 }
 
+func (s *NamespaceStore) Name() string { return s.Namespace }
 func (s *NamespaceStore) List() []string {
 	var arr []string
 	for _, item := range s.Items {
@@ -106,6 +120,7 @@ func (s *NamespaceStore) Init() {
 
 func (s *NamespaceStore) Close(ctx context.Context) error {
 	var errs []string
+	sort.Sort(sort.Reverse(s))
 	for _, item := range s.Items {
 		if err := item.Close(ctx); err != nil {
 			errs = append(errs, err.Error())

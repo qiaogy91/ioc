@@ -1,6 +1,7 @@
 package gorestful
 
 import (
+	"context"
 	"fmt"
 	"github.com/emicklei/go-restful/v3"
 	"github.com/qiaogy91/ioc"
@@ -25,6 +26,11 @@ func (f *Framework) Priority() int {
 
 func (f *Framework) Name() string {
 	return AppName
+}
+
+func (f *Framework) Close(ctx context.Context) error {
+	f.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	return nil
 }
 
 func (f *Framework) Init() {

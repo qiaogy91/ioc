@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v5.27.1
-// source: apps/app01/pb/rpc.proto
+// source: apps/user/pb/rpc.proto
 
 package app01
 
@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Service_Create_FullMethodName = "/infra.example.app01.Service/Create"
-	Service_List_FullMethodName   = "/infra.example.app01.Service/List"
+	Service_Create_FullMethodName = "/infra.example.user.Service/Create"
+	Service_List_FullMethodName   = "/infra.example.user.Service/List"
 )
 
 // ServiceClient is the client API for Service service.
@@ -129,7 +129,7 @@ func _Service_List_Handler(srv interface{}, ctx context.Context, dec func(interf
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Service_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "infra.example.app01.Service",
+	ServiceName: "infra.example.user.Service",
 	HandlerType: (*ServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -142,5 +142,5 @@ var Service_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "apps/app01/pb/rpc.proto",
+	Metadata: "apps/user/pb/rpc.proto",
 }

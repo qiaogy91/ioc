@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.34.2
 // 	protoc        v5.27.1
-// source: apps/app01/pb/rpc.proto
+// source: apps/user/pb/rpc.proto
 
 package app01
 
@@ -96,16 +96,16 @@ func file_apps_app01_pb_rpc_proto_rawDescGZIP() []byte {
 
 var file_apps_app01_pb_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_apps_app01_pb_rpc_proto_goTypes = []any{
-	(*ListUserReq)(nil),   // 0: infra.example.app01.ListUserReq
-	(*CreateUserReq)(nil), // 1: infra.example.app01.CreateUserReq
-	(*User)(nil),          // 2: infra.example.app01.User
-	(*UserSet)(nil),       // 3: infra.example.app01.UserSet
+	(*ListUserReq)(nil),   // 0: infra.example.user.ListUserReq
+	(*CreateUserReq)(nil), // 1: infra.example.user.CreateUserReq
+	(*User)(nil),          // 2: infra.example.user.User
+	(*UserSet)(nil),       // 3: infra.example.user.UserSet
 }
 var file_apps_app01_pb_rpc_proto_depIdxs = []int32{
-	1, // 0: infra.example.app01.Service.Create:input_type -> infra.example.app01.CreateUserReq
-	0, // 1: infra.example.app01.Service.List:input_type -> infra.example.app01.ListUserReq
-	2, // 2: infra.example.app01.Service.Create:output_type -> infra.example.app01.User
-	3, // 3: infra.example.app01.Service.List:output_type -> infra.example.app01.UserSet
+	1, // 0: infra.example.user.Service.Create:input_type -> infra.example.user.CreateUserReq
+	0, // 1: infra.example.user.Service.List:input_type -> infra.example.user.ListUserReq
+	2, // 2: infra.example.user.Service.Create:output_type -> infra.example.user.User
+	3, // 3: infra.example.user.Service.List:output_type -> infra.example.user.UserSet
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

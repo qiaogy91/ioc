@@ -1,6 +1,7 @@
 package gin
 
 import (
+	"context"
 	"fmt"
 	restfulspec "github.com/emicklei/go-restful-openapi/v2"
 	"github.com/prometheus/client_golang/prometheus"
@@ -48,6 +49,10 @@ func (h *Handler) Init() {
 	h.log.Info(fmt.Sprintf("Get the Metric using http://%s/%s", http.Get().Addr(), h.Name()))
 }
 
+func (h *Handler) Close(ctx context.Context) error {
+	h.log.Info("closed completed", slog.String("namespace", ioc.ApiNamespace))
+	return nil
+}
 func init() {
 	ioc.Api().Registry(&Handler{})
 }

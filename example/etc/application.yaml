@@ -1,5 +1,5 @@
 app:
-  name: "app01"
+  name: "user"
   description: "案例项目演示"
   domain: "example.com"
 

@@ -10,10 +10,11 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 const (
-	AppName = "application-server"
+	AppName = "Ioc"
 )
 
 var configReq = "etc/application.yaml"
@@ -29,15 +30,16 @@ type Server struct {
 
 func (s *Server) Run(ctx context.Context) error {
 	// 初始化ioc
-	err := ioc.ConfigIocObject(configReq)
-	if err != nil {
-		return err
-	}
+	//err := ioc.ConfigIocObject(configReq)
+	//if err != nil {
+	//	return err
+	//}
 
 	// 处理信号量
 	s.ch = make(chan os.Signal, 1)
 	signal.Notify(s.ch, syscall.SIGTERM, syscall.SIGINT, syscall.SIGHUP, syscall.SIGQUIT)
-	s.ctx, s.cancel = context.WithCancel(context.Background())
+
+	s.ctx, s.cancel = context.WithTimeout(context.Background(), 10*time.Second)
 
 	s.http = http.Get()
 	s.grpc = grpc.Get()
@@ -56,28 +58,21 @@ func (s *Server) Run(ctx context.Context) error {
 	if s.grpc.Enable {
 		go s.grpc.Start(ctx)
 	}
+
 	s.waitSign()
 	return nil
 }
 
 func (s *Server) waitSign() {
 	defer s.cancel()
-
 	for sg := range s.ch {
 		switch v := sg.(type) {
 		default:
-			s.log.Info("graceful shutdown", slog.String("reason", v.String()))
+			// 遍历每个名称空间，执行所有对象的Close 方法
+			s.log.Info("receive a signal", slog.String("signal", v.String()))
 
-			if s.grpc.Enable {
-				if err := s.grpc.Stop(s.ctx); err != nil {
-					s.log.Error("graceful shutdown error", slog.Any("err", err))
-				}
-			}
-
-			if s.http.Enable {
-				if err := s.http.Stop(s.ctx); err != nil {
-					s.log.Error("http graceful shutdown error", slog.Any("err", err))
-				}
+			if err := ioc.GetStore().Close(s.ctx); err != nil {
+				s.log.Error("close error", slog.String("reason", err.Error()))
 			}
 			return
 		}

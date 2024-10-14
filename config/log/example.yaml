@@ -1,0 +1,11 @@
+log:
+  trace: true
+  callerDeep: 2
+  level: debug
+  filename: "logs/app.log"
+  maxSize: 10
+  maxAge: 30
+  maxBackups: 6
+  LocalTime: true
+  compress: false
+  deep: 3

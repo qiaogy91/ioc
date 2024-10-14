@@ -1,6 +1,7 @@
 package restful
 
 import (
+	"context"
 	"fmt"
 	restfulspec "github.com/emicklei/go-restful-openapi/v2"
 	"github.com/qiaogy91/ioc"
@@ -34,6 +35,10 @@ func (h *Handler) Init() {
 	)
 
 	h.log.Info(fmt.Sprintf("Get the API doc using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json "))
+}
+func (h *Handler) Close(ctx context.Context) error {
+	h.log.Info("closed completed", slog.String("namespace", ioc.ApiNamespace))
+	return nil
 }
 
 func init() {

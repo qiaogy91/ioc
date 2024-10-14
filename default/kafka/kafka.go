@@ -1,6 +1,7 @@
 package kafka
 
 import (
+	"context"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
 	"github.com/segmentio/kafka-go"
@@ -34,6 +35,10 @@ func (c *Client) Init() {
 		panic(err)
 	}
 	c.mechanism = mechanism
+}
+func (c *Client) Close(ctx context.Context) error {
+	c.log.Info("closed completed", slog.String("namespace", ioc.DefaultNamespace))
+	return nil
 }
 
 func (c *Client) Producer(topic string) *kafka.Writer {

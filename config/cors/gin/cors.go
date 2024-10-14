@@ -1,6 +1,7 @@
 package gin
 
 import (
+	"context"
 	"github.com/gin-contrib/cors"
 	"github.com/qiaogy91/ioc"
 	iocgin "github.com/qiaogy91/ioc/config/gin"
@@ -42,6 +43,10 @@ func (c *CORS) Init() {
 		}))
 		c.log.Info("Gin CORS enabled")
 	}
+}
+func (c *CORS) Close(ctx context.Context) error {
+	c.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	return nil
 }
 
 func init() {

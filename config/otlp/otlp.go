@@ -27,6 +27,7 @@ func (i *Impl) Close(ctx context.Context) error {
 	for _, fn := range i.shutdownFns {
 		err = errors.Join(err, fn(ctx))
 	}
+	i.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return err
 }
 

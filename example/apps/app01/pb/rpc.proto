@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package infra.example.app01;
 
-import "apps/app01/pb/model.proto";
+import "apps/user/pb/model.proto";
 
-option go_package = "github.com/qiaogy91/ioc/example/apps/app01";
+option go_package = "github.com/qiaogy91/ioc/example/apps/user";
 
 
 service Service {

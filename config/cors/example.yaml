@@ -1,0 +1,9 @@
+cors:
+  enabled: true
+  allowedHeaders: [ "*" ]
+  allowedMethods: [ "*" ]
+  allowOrigins: [ "*" ]
+  allowedDomains: [ ".*" ]
+  exposeHeaders: [ ]
+  allowCookies: false
+  maxAge: 43200

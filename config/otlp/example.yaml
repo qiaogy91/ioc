@@ -1,0 +1,5 @@
+otlp:
+  enabled: true
+  httpEndpoint: "127.0.0.1:4318"
+  grpcEndpoint: "127.0.0.1:4317"
+  insecure: true

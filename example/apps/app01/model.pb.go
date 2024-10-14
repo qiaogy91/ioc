@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.34.2
 // 	protoc        v5.27.1
-// source: apps/app01/pb/model.proto
+// source: apps/user/pb/model.proto
 
 package app01
 
@@ -301,15 +301,15 @@ func file_apps_app01_pb_model_proto_rawDescGZIP() []byte {
 
 var file_apps_app01_pb_model_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_apps_app01_pb_model_proto_goTypes = []any{
-	(*User)(nil),          // 0: infra.example.app01.User
-	(*Meta)(nil),          // 1: infra.example.app01.Meta
-	(*CreateUserReq)(nil), // 2: infra.example.app01.CreateUserReq
-	(*UserSet)(nil),       // 3: infra.example.app01.UserSet
+	(*User)(nil),          // 0: infra.example.user.User
+	(*Meta)(nil),          // 1: infra.example.user.Meta
+	(*CreateUserReq)(nil), // 2: infra.example.user.CreateUserReq
+	(*UserSet)(nil),       // 3: infra.example.user.UserSet
 }
 var file_apps_app01_pb_model_proto_depIdxs = []int32{
-	1, // 0: infra.example.app01.User.meta:type_name -> infra.example.app01.Meta
-	2, // 1: infra.example.app01.User.spec:type_name -> infra.example.app01.CreateUserReq
-	0, // 2: infra.example.app01.UserSet.items:type_name -> infra.example.app01.User
+	1, // 0: infra.example.user.User.meta:type_name -> infra.example.user.Meta
+	2, // 1: infra.example.user.User.spec:type_name -> infra.example.user.CreateUserReq
+	0, // 2: infra.example.user.UserSet.items:type_name -> infra.example.user.User
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

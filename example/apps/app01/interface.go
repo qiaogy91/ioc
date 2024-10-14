@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	AppName = "app01"
+	AppName = "user"
 )
 
 func GetSvc() Service {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/qiaogy91/ioc/config/trace"
+	"github.com/qiaogy91/ioc/config/otlp"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/plugin/opentelemetry/tracing"
@@ -17,12 +17,12 @@ var _ ioc.ObjectInterface = &DataSource{}
 type DataSource struct {
 	ioc.ObjectImpl
 	Trace    bool   `json:"trace" yaml:"trace"`
-	Host     string `json:"host" yaml:"host" toml:"host" env:"HOST"`
-	Port     int    `json:"port" yaml:"port" toml:"port" env:"PORT"`
-	DB       string `json:"database" yaml:"database" toml:"database" env:"DB"`
-	Username string `json:"username" yaml:"username" toml:"username" env:"USERNAME"`
-	Password string `json:"password" yaml:"password" toml:"password" env:"PASSWORD"`
-	Debug    bool   `json:"debug" yaml:"debug" toml:"debug" env:"DEBUG"`
+	Host     string `json:"host" yaml:"host"`
+	Port     int    `json:"port" yaml:"port"`
+	DB       string `json:"database" yaml:"database"`
+	Username string `json:"username" yaml:"username"`
+	Password string `json:"password" yaml:"password"`
+	Debug    bool   `json:"debug" yaml:"debug"`
 
 	db  *gorm.DB
 	log *slog.Logger
@@ -62,7 +62,7 @@ func (ds *DataSource) Init() {
 	ds.db = db
 
 	// 开启Trace
-	if trace.Get().Enable && ds.Trace {
+	if otlp.Get().Enabled && ds.Trace {
 		if err := db.Use(tracing.NewPlugin(tracing.WithoutMetrics())); err != nil {
 			panic(err)
 		}
@@ -79,6 +79,7 @@ func (ds *DataSource) Close(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+	ds.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return d.Close()
 }
 

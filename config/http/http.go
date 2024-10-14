@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/dustin/go-humanize"
 	"github.com/qiaogy91/ioc"
@@ -62,14 +63,17 @@ func (h *Http) Start(ctx context.Context) {
 	h.log.Info(fmt.Sprintf("Started HttpServer at: %s", h.Addr()))
 
 	if err := h.server.ListenAndServe(); err != nil {
+		if errors.Is(err, http.ErrServerClosed) {
+			return
+		}
 		h.log.Error("HttpServer Listen err", slog.Any("err", err))
 	}
 }
-func (h *Http) Stop(ctx context.Context) error {
+func (h *Http) Close(ctx context.Context) error {
 	if err := h.server.Shutdown(ctx); err != nil {
 		return fmt.Errorf("http graceful shutdown timeout, force exit")
 	}
-	h.log.Info("HttpServer Shutdown Complete")
+	h.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 

@@ -9,9 +9,8 @@ const (
 
 // 定义各个名称空间容器，并定义获取这些容器的方法
 var (
-	isLoaded     bool
-	ConfFilePath string
-	store        = &Container{
+	isLoaded bool
+	store    = &Container{
 		store: []*NamespaceStore{
 			{Namespace: ConfigNamespace, Priority: 1, Items: make([]ObjectInterface, 0)},
 			{Namespace: DefaultNamespace, Priority: 2, Items: make([]ObjectInterface, 0)},
@@ -37,4 +36,8 @@ func ConfigIocObject(confPath string) error {
 
 	isLoaded = true
 	return nil
+}
+
+func GetStore() *Container {
+	return store
 }

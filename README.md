@@ -12,6 +12,31 @@ Ioc 框架设置了默认4个名称空间
 Ioc 优先级关系逻辑图：
 [示例图](docs/priority.drawio)
 
+
+#### 单元测试
+1. 示例
+```go
+import (
+    _ "case04/apps"  // 导入 apps/registry.go 中注册的所有模块
+    "case04/apps/user"
+    "context"
+    "github.com/qiaogy91/ioc"
+    "testing"
+)
+
+var (
+    ctx = context.Background()
+    c   = user.GetSvc()  // 通过Ioc 获取controller 
+)
+
+func init() {
+    // 初始化Ioc 框架
+    if err := ioc.ConfigIocObject("/Users/qiaogy/GolandProjects/projects/skill/case04/etc/application.yaml"); err != nil {
+        panic(err)
+    }
+}
+```
+
 #### Health 检测接入
 1. 导入Ioc 模块
 ```go

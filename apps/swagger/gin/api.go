@@ -1,6 +1,7 @@
 package gin
 
 import (
+	"context"
 	"fmt"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/gin"
@@ -31,6 +32,10 @@ func (h *Handler) Init() {
 	r.GET("/doc.json", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	h.log.Info(fmt.Sprintf("Get the API doc using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json"))
+}
+func (h *Handler) Close(ctx context.Context) error {
+	h.log.Info("closed completed", slog.String("namespace", ioc.ApiNamespace))
+	return nil
 }
 
 func init() {

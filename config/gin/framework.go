@@ -1,6 +1,7 @@
 package gin
 
 import (
+	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/application"
@@ -26,6 +27,11 @@ func (f *Framework) Name() string {
 
 func (f *Framework) Priority() int {
 	return 104
+}
+
+func (f *Framework) Close(ctx context.Context) error {
+	f.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	return nil
 }
 
 func (f *Framework) Init() {

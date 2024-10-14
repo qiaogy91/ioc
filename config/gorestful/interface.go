@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	AppName = "restful-framework"
+	AppName = "restful"
 )
 
 func RootContainer() *restful.Container {

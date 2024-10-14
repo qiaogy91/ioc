@@ -1,6 +1,7 @@
 package restful
 
 import (
+	"context"
 	"github.com/emicklei/go-restful/v3"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/gorestful"
@@ -43,6 +44,11 @@ func (c *CORS) Init() {
 		container.Filter(cors.Filter)
 		c.log.Info("Restful CORS enabled")
 	}
+}
+
+func (c *CORS) Close(ctx context.Context) error {
+	c.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	return nil
 }
 
 func init() {

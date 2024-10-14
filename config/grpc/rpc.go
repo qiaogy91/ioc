@@ -70,9 +70,9 @@ func (s *Server) Start(ctx context.Context) {
 	}
 }
 
-func (s *Server) Stop(ctx context.Context) error {
+func (s *Server) Close(ctx context.Context) error {
 	s.server.GracefulStop()
-	s.log.Info("GrpcServer Shutdown Complete")
+	s.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 
