@@ -14,14 +14,20 @@ import (
 
 const AppName = "metrics"
 
+var (
+	ins = &Handler{
+		RequestTotalName:     "http_request_total",
+		RequestHistogramName: "http_request_duration_histogram",
+	}
+)
+
 type Handler struct {
 	ioc.ObjectImpl
 	log                          *slog.Logger
-	RequestTotalName             string                  `json:"requestTotalName" yaml:"requestTotalName"`             // Counter 标签名称
-	RequestHistogramName         string                  `json:"requestHistogramName" yaml:"requestHistogramName"`     // Histogram 标签名称
-	RequestHistogramBucket       []float64               `json:"requestHistogramBucket" yaml:"requestHistogramBucket"` // Histogram bucket 边界
-	HttpRequestTotal             metric.Int64Counter     // 请求总数
-	HttpRequestDurationHistogram metric.Float64Histogram // 请求时长柱状图
+	RequestTotalName             string                  `json:"requestTotalName" yaml:"requestTotalName"`         // Counter 指标名称
+	RequestHistogramName         string                  `json:"requestHistogramName" yaml:"requestHistogramName"` // Histogram 指标名称
+	HttpRequestTotal             metric.Int64Counter     // 指标值
+	HttpRequestDurationHistogram metric.Float64Histogram // 指标值
 }
 
 func (h *Handler) Name() string  { return AppName }
@@ -51,5 +57,5 @@ func (h *Handler) Close(ctx context.Context) error {
 }
 
 func init() {
-	ioc.Api().Registry(&Handler{})
+	ioc.Api().Registry(ins)
 }

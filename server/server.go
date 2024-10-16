@@ -41,13 +41,8 @@ func (s *Server) Run(ctx context.Context) error {
 	s.log.Info("init success", slog.Any("controller", ioc.Controller().List()))
 	s.log.Info("init success", slog.Any("api", ioc.Api().List()))
 
-	if s.http.Enable {
-		go s.http.Start(ctx)
-	}
-
-	if s.grpc.Enable {
-		go s.grpc.Start(ctx)
-	}
+	go s.http.Start(ctx)
+	go s.grpc.Start(ctx)
 
 	s.waitSign()
 	return nil

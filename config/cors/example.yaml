@@ -1,5 +1,4 @@
 cors:
-  enabled: true
   allowedHeaders: [ "*" ]
   allowedMethods: [ "*" ]
   allowOrigins: [ "*" ]

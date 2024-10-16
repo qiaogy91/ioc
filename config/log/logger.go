@@ -12,6 +12,22 @@ import (
 	"sync"
 )
 
+var (
+	ins = &Logger{
+		lock:       new(sync.Mutex),
+		subLoggers: make(map[string]*slog.Logger),
+		Trace:      true,
+		Level:      slog.LevelDebug,
+		Filename:   "logs/app.log",
+		MaxSize:    10,
+		MaxAge:     20,
+		MaxBackups: 6,
+		LocalTime:  true,
+		Compress:   true,
+		Deep:       3,
+	}
+)
+
 type Logger struct {
 	ioc.ObjectImpl
 	lock       sync.Locker
@@ -111,8 +127,5 @@ func (l *Logger) Init() {
 }
 
 func init() {
-	ioc.Config().Registry(&Logger{
-		lock:       &sync.Mutex{},
-		subLoggers: make(map[string]*slog.Logger),
-	})
+	ioc.Config().Registry(ins)
 }

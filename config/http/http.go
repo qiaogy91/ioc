@@ -13,10 +13,21 @@ import (
 	"time"
 )
 
-var _ ioc.ObjectInterface = &Http{}
+var (
+	_   ioc.ObjectInterface = &Http{}
+	ins                     = &Http{
+		Host:              "0.0.0.0",
+		Port:              8080,
+		ReadHeaderTimeout: 30,
+		ReadTimeout:       60,
+		WriteTimeout:      60,
+		IdleTimeout:       300,
+		MaxHeaderSize:     "16kb",
+		Trace:             true,
+	}
+)
 
 type Http struct {
-	Enable            bool   `json:"enable" yaml:"enable" env:"ENABLE"`
 	Host              string `json:"host" yaml:"host" env:"HOST"`
 	Port              int    `json:"port" yaml:"port" env:"PORT"`
 	ReadHeaderTimeout int    `json:"readHeaderTimeout" yaml:"readHeaderTimeout" env:"READ_HEADER_TIMEOUT"` // 读取请求头超时时间
@@ -111,5 +122,5 @@ func (h *Http) SetRouter(r http.Handler) {
 }
 
 func init() {
-	ioc.Config().Registry(&Http{})
+	ioc.Config().Registry(ins)
 }

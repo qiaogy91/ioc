@@ -14,13 +14,19 @@ import (
 	"slices"
 )
 
-var _ ioc.ObjectInterface = &Server{}
+var (
+	_   ioc.ObjectInterface = &Server{}
+	ins                     = &Server{
+		Host:  "127.0.0.1",
+		Port:  18080,
+		Token: "my_secret_token",
+	}
+)
 
 type Server struct {
-	Enable bool   `json:"enable" yaml:"enable"`
-	Host   string `json:"host" yaml:"host"`
-	Port   int    `json:"port" yaml:"port"`
-	Token  string `json:"token" yaml:"token"`
+	Host  string `json:"host" yaml:"host"`
+	Port  int    `json:"port" yaml:"port"`
+	Token string `json:"token" yaml:"token"`
 	ioc.ObjectImpl
 	server *grpc.Server
 	log    *slog.Logger
@@ -85,7 +91,7 @@ func (s *Server) Start(ctx context.Context) {
 		return
 	}
 
-	s.log.Debug("HttpServer started",
+	s.log.Debug("GrpcServer started",
 		slog.String("listen", fmt.Sprintf("http://%s", s.Addr())),
 		slog.String("visit", fmt.Sprintf("http://%s", s.PrettyAddr())))
 	if err := s.server.Serve(lis); err != nil {
@@ -107,5 +113,5 @@ func (s *Server) Server() *grpc.Server {
 }
 
 func init() {
-	ioc.Config().Registry(&Server{})
+	ioc.Config().Registry(ins)
 }

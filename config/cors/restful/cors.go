@@ -9,10 +9,20 @@ import (
 	"log/slog"
 )
 
+var (
+	ins = &CORS{
+		AllowedHeaders: []string{"*"},
+		AllowedDomains: []string{".*"},
+		AllowedMethods: []string{"*"},
+		ExposeHeaders:  []string{"*"},
+		AllowCookies:   true,
+		MaxAge:         43200,
+	}
+)
+
 type CORS struct {
 	ioc.ObjectImpl
 	log            *slog.Logger
-	Enabled        bool     `json:"enabled" yaml:"enabled"`
 	AllowedHeaders []string `json:"allowedHeaders" yaml:"allowedHeaders"`
 	AllowedDomains []string `json:"allowedDomains" yaml:"allowedDomains"`
 	AllowedMethods []string `json:"allowedMethods" yaml:"allowedMethods"`
@@ -29,21 +39,19 @@ func (c *CORS) Init() {
 	c.log = log.Sub("cors")
 
 	// 将中间件添加到Router中
-	if c.Enabled {
-		container := gorestful.RootContainer()
-		cors := restful.CrossOriginResourceSharing{
-			// 可以的
-			ExposeHeaders:  c.ExposeHeaders,
-			AllowedHeaders: c.AllowedHeaders,
-			AllowedMethods: c.AllowedMethods,
-			AllowedDomains: c.AllowedDomains,
-			CookiesAllowed: false,
-			Container:      container,
-			MaxAge:         c.MaxAge,
-		}
-		container.Filter(cors.Filter)
-		c.log.Debug("Restful CORS enabled")
+	container := gorestful.RootContainer()
+	cors := restful.CrossOriginResourceSharing{
+		// 可以的
+		ExposeHeaders:  c.ExposeHeaders,
+		AllowedHeaders: c.AllowedHeaders,
+		AllowedMethods: c.AllowedMethods,
+		AllowedDomains: c.AllowedDomains,
+		CookiesAllowed: false,
+		Container:      container,
+		MaxAge:         c.MaxAge,
 	}
+	container.Filter(cors.Filter)
+	c.log.Debug("Restful CORS enabled")
 }
 
 func (c *CORS) Close(ctx context.Context) error {
@@ -52,5 +60,5 @@ func (c *CORS) Close(ctx context.Context) error {
 }
 
 func init() {
-	ioc.Config().Registry(&CORS{})
+	ioc.Config().Registry(ins)
 }

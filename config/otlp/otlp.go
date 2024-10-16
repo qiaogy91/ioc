@@ -10,10 +10,18 @@ import (
 	"log/slog"
 )
 
+var (
+	ins = &Impl{
+		HttpEndpoint: "127.0.0.1:4318",
+		GrpcEndpoint: "127.0.0.1:4317",
+		Insecure:     true,
+		shutdownFns:  make([]func(ctx context.Context) error, 0),
+	}
+)
+
 type Impl struct {
 	ioc.ObjectImpl
 	log          *slog.Logger
-	Enabled      bool   `json:"enabled" yaml:"enabled"`
 	HttpEndpoint string `json:"httpEndpoint" yaml:"httpEndpoint"`
 	GrpcEndpoint string `json:"grpcEndpoint" yaml:"grpcEndpoint"`
 	Insecure     bool   `json:"insecure" yaml:"insecure"`
@@ -47,5 +55,5 @@ func (i *Impl) Init() {
 }
 
 func init() {
-	ioc.Config().Registry(&Impl{shutdownFns: make([]func(ctx context.Context) error, 0)})
+	ioc.Config().Registry(ins)
 }

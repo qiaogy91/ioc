@@ -44,9 +44,10 @@ func (h *Handler) MetricMiddleware(ctx *gin.Context) {
 		attribute.String("path", ctx.FullPath())),
 	)
 
-	h.HttpRequestDurationHistogram.Record(ctx.Request.Context(), time.Since(start).Seconds(), metric.WithAttributes(
-		attribute.String("service", application.Get().AppName),
-		attribute.String("method", ctx.Request.Method),
-		attribute.String("path", ctx.FullPath()),
-	))
+	h.HttpRequestDurationHistogram.Record(ctx.Request.Context(), time.Since(start).Seconds(),
+		metric.WithAttributes(
+			attribute.String("service", application.Get().AppName),
+			attribute.String("method", ctx.Request.Method),
+			attribute.String("path", ctx.FullPath()),
+		))
 }
