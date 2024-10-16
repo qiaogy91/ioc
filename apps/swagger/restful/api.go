@@ -37,12 +37,12 @@ func (h *Handler) Init() {
 		Doc("查询文档面板").
 		Metadata(restfulspec.KeyOpenAPITags, tags))
 
-	h.log.Info(fmt.Sprintf("Get the API doc using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json "))
-	h.log.Info(fmt.Sprintf("Get the Redoc UI using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.ui "))
+	h.log.Debug(fmt.Sprintf("Get the API doc using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json "))
+	h.log.Debug(fmt.Sprintf("Get the Redoc UI using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.ui "))
 }
 
 func (h *Handler) Close(ctx context.Context) error {
-	h.log.Info("closed completed", slog.String("namespace", ioc.ApiNamespace))
+	h.log.Debug("closed completed", slog.String("namespace", ioc.ApiNamespace))
 	return nil
 }
 

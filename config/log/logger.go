@@ -32,9 +32,8 @@ type Logger struct {
 func (l *Logger) Name() string  { return AppName }
 func (l *Logger) Priority() int { return 101 }
 func (l *Logger) Close(ctx context.Context) error {
-
 	selfLog := l.SubLogger(AppName)
-	selfLog.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	selfLog.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 
@@ -95,10 +94,6 @@ func (l *Logger) SubLogger(name string) *slog.Logger {
 }
 
 func (l *Logger) Init() {
-	// 设置全局默认 logger
-	// 没啥卵用
-	//slog.SetDefault(slog.New(l.HandlerConsole()))
-
 	handlers := &MultiHandler{
 		hs: []slog.Handler{
 			l.HandlerConsole(),
@@ -106,10 +101,9 @@ func (l *Logger) Init() {
 		},
 	}
 
+	// 如果开启追踪，则增加一个handler 用来将日志发送到 Otlp
 	if l.Trace {
-		// otelslog 中的Handler，默认会使用全局的 LogerProvider 来将日志发送到 OTEL 后端
-		// 这个handler 他妈的只将message 字段值进行了记录  record.SetBody(log.StringValue(r.Message))
-		// TODO 想办法将所有字段值都发给后端 OTLP
+		ioc.OtlpMustEnabled()
 		handlers.hs = append(handlers.hs, otelslog.NewHandler("trace-handler"))
 	}
 

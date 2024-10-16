@@ -53,6 +53,27 @@ func (s *Server) TokenAuth(ctx context.Context, req interface{}, info *grpc.Unar
 	return handler(ctx, req) // 通过则放行
 }
 
+func (s *Server) PrettyAddr() string {
+	if s.Host == "0.0.0.0" {
+		// 如果用户配置的是 0.0.0.0 则从本地接口随便取出一个地址
+		inters, err := net.InterfaceAddrs()
+		if err != nil {
+			panic(err)
+		}
+		for _, addr := range inters {
+			// 获取 IP 地址
+			ipNet, ok := addr.(*net.IPNet)
+			if !ok || ipNet.IP.IsLoopback() {
+				continue
+			}
+			// 打印非回环的 IPv4 地址
+			if ip := ipNet.IP.To4(); ip != nil {
+				return fmt.Sprintf("%s:%d", ip, s.Port)
+			}
+		}
+	}
+	return s.Addr()
+}
 func (s *Server) Addr() string {
 	return fmt.Sprintf("%s:%d", s.Host, s.Port)
 }
@@ -64,7 +85,9 @@ func (s *Server) Start(ctx context.Context) {
 		return
 	}
 
-	s.log.Info("GrpcServer Started", slog.String("addr", s.Addr()))
+	s.log.Debug("HttpServer started",
+		slog.String("listen", fmt.Sprintf("http://%s", s.Addr())),
+		slog.String("visit", fmt.Sprintf("http://%s", s.PrettyAddr())))
 	if err := s.server.Serve(lis); err != nil {
 		s.log.Error("GrpcServer serve err", slog.Any("err", err))
 	}
@@ -72,7 +95,7 @@ func (s *Server) Start(ctx context.Context) {
 
 func (s *Server) Close(ctx context.Context) error {
 	s.server.GracefulStop()
-	s.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	s.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 

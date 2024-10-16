@@ -36,10 +36,10 @@ func (s *Server) Run(ctx context.Context) error {
 
 	s.log = log.Sub(AppName)
 
-	s.log.Info("config namespace", slog.Any("loaded", ioc.Config().List()))
-	s.log.Info("default namespace", slog.Any("loaded", ioc.Default().List()))
-	s.log.Info("controller namespace", slog.Any("loaded", ioc.Controller().List()))
-	s.log.Info("apis namespace", slog.Any("loaded", ioc.Api().List()))
+	s.log.Info("init success", slog.Any("config", ioc.Config().List()))
+	s.log.Info("init success", slog.Any("default", ioc.Default().List()))
+	s.log.Info("init success", slog.Any("controller", ioc.Controller().List()))
+	s.log.Info("init success", slog.Any("api", ioc.Api().List()))
 
 	if s.http.Enable {
 		go s.http.Start(ctx)
@@ -60,14 +60,14 @@ func (s *Server) waitSign() {
 			ctx, cancel := context.WithTimeout(context.Background(), StopTimeout)
 
 			// 遍历每个名称空间，执行所有对象的Close 方法
-			s.log.Info("receive a signal", slog.String("signal", v.String()))
-
-			if err := ioc.GetStore().Close(ctx); err != nil {
+			s.log.Warn("receive a signal", slog.String("signal", v.String()))
+			if err := ioc.GetContainer().Close(ctx); err != nil {
 				s.log.Error("close error", slog.String("reason", err.Error()))
 			}
 
 			// 清理资源
 			cancel()
+			s.log.Info("shutdown complete")
 			return
 		}
 	}

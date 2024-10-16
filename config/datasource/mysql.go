@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/qiaogy91/ioc/config/otlp"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/plugin/opentelemetry/tracing"
@@ -62,11 +61,12 @@ func (ds *DataSource) Init() {
 	ds.db = db
 
 	// 开启Trace
-	if otlp.Get().Enabled && ds.Trace {
+	if ds.Trace {
+		ioc.OtlpMustEnabled()
 		if err := db.Use(tracing.NewPlugin(tracing.WithoutMetrics())); err != nil {
 			panic(err)
 		}
-		ds.log.Info("mysql trace enabled")
+		ds.log.Debug("mysql trace enabled")
 	}
 }
 
@@ -79,7 +79,7 @@ func (ds *DataSource) Close(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	ds.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	ds.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return d.Close()
 }
 

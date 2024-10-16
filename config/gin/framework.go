@@ -7,7 +7,6 @@ import (
 	"github.com/qiaogy91/ioc/config/application"
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/qiaogy91/ioc/config/otlp"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 	"log/slog"
 )
@@ -30,7 +29,7 @@ func (f *Framework) Priority() int {
 }
 
 func (f *Framework) Close(ctx context.Context) error {
-	f.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	f.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 
@@ -45,9 +44,10 @@ func (f *Framework) Init() {
 	serv.SetRouter(f.Engine)
 
 	// 开启Trace
-	if serv.Trace && otlp.Get().Enabled {
+	if serv.Trace {
+		ioc.OtlpMustEnabled()
 		f.Engine.Use(otelgin.Middleware(application.Get().ApplicationName()))
-		f.log.Info("Gin trace enabled")
+		f.log.Debug("Gin trace enabled")
 	}
 }
 

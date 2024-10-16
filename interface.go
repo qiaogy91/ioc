@@ -7,7 +7,6 @@ type NamespaceInterface interface {
 	Registry(obj ObjectInterface)    // 注册对象
 	Get(name string) ObjectInterface // 获取对象
 	List() []string                  // 打印对象名称列表
-	LoadFromEnv(prefix string)       // 从环境变量中加载配置
 	LoadFromFile(filename string)    // 从配置文件中加载
 }
 

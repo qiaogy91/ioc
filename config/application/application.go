@@ -26,7 +26,7 @@ func (a *Application) Init() {
 }
 
 func (a *Application) Close(ctx context.Context) error {
-	a.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	a.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 

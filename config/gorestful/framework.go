@@ -8,7 +8,6 @@ import (
 	"github.com/qiaogy91/ioc/config/application"
 	"github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
-	"github.com/qiaogy91/ioc/config/otlp"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful"
 	"log/slog"
 	"time"
@@ -29,7 +28,7 @@ func (f *Framework) Name() string {
 }
 
 func (f *Framework) Close(ctx context.Context) error {
-	f.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	f.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 
@@ -45,15 +44,11 @@ func (f *Framework) Init() {
 
 	f.Container.Filter(f.AccessLog)
 
-	// 开启Trace
-	//if serv.Trace && trace.Get().Enable {
-	//	f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
-	//	f.log_bak.Info().Msg("restful trace enabled")
-	//}
 	// 替换为otlp trace
-	if serv.Trace && otlp.Get().Enabled {
+	if serv.Trace {
+		ioc.OtlpMustEnabled()
 		f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
-		f.log.Info("Restful trace enabled")
+		f.log.Debug("Restful trace enabled")
 	}
 }
 

@@ -42,7 +42,8 @@ func (h *Handler) Init() {
 
 	// 加载到全局中间件
 	iocgin.RootRouter().Use(h.MetricMiddleware)
-	h.log.Info(fmt.Sprintf("Get the Metric using http://%s/%s", http.Get().Addr(), h.Name()))
+	h.log.Info("Metric enabled",
+		slog.String("visit", fmt.Sprintf("http://%s/%s", http.Get().PrettyAddr(), AppName)))
 }
 
 func (h *Handler) Close(ctx context.Context) error {

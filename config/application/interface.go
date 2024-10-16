@@ -1,9 +1,12 @@
 package application
 
-import "github.com/qiaogy91/ioc"
+import (
+	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config"
+)
 
 const (
-	AppName = "application"
+	AppName = config.ApplicationName
 )
 
 func Get() *Application {

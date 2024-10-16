@@ -3,11 +3,12 @@ package gin
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config"
 	"path"
 )
 
 const (
-	AppName = "framework"
+	AppName = config.GinName
 )
 
 func RootRouter() *gin.Engine {

@@ -41,11 +41,11 @@ func (c *CORS) Init() {
 			MaxAge:           time.Duration(c.MaxAge) * time.Second,
 			AllowWildcard:    true,
 		}))
-		c.log.Info("Gin CORS enabled")
+		c.log.Debug("Gin CORS enabled")
 	}
 }
 func (c *CORS) Close(ctx context.Context) error {
-	c.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	c.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 

@@ -42,12 +42,12 @@ func (c *CORS) Init() {
 			MaxAge:         c.MaxAge,
 		}
 		container.Filter(cors.Filter)
-		c.log.Info("Restful CORS enabled")
+		c.log.Debug("Restful CORS enabled")
 	}
 }
 
 func (c *CORS) Close(ctx context.Context) error {
-	c.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	c.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 

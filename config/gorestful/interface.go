@@ -3,11 +3,12 @@ package gorestful
 import (
 	"github.com/emicklei/go-restful/v3"
 	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config"
 	"path"
 )
 
 const (
-	AppName = "restful"
+	AppName = config.GoRestfulName
 )
 
 func RootContainer() *restful.Container {

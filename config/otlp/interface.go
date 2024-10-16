@@ -1,7 +1,10 @@
 package otlp
 
-import "github.com/qiaogy91/ioc"
+import (
+	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config"
+)
 
-const AppName = "otlp"
+const AppName = config.OtlpName
 
 func Get() *Impl { return ioc.Config().Get(AppName).(*Impl) }

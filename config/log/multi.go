@@ -29,11 +29,13 @@ func (m *MultiHandler) Handle(ctx context.Context, r slog.Record) error {
 
 func (m *MultiHandler) Enabled(ctx context.Context, level slog.Level) bool {
 	for _, h := range m.hs {
-		if h.Enabled(ctx, level) {
-			return true
+		// 如果有一个 handler 不启用当前级别，则返回 false
+		if !h.Enabled(ctx, level) {
+			return false
 		}
 	}
-	return false
+	// 只有当所有 handler 都启用时，才返回 true
+	return true
 }
 
 func (m *MultiHandler) WithAttrs(attrs []slog.Attr) slog.Handler {

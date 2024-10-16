@@ -27,7 +27,7 @@ func (i *Impl) Close(ctx context.Context) error {
 	for _, fn := range i.shutdownFns {
 		err = errors.Join(err, fn(ctx))
 	}
-	i.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	i.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return err
 }
 
@@ -43,7 +43,7 @@ func (i *Impl) Init() {
 			propagation.TraceContext{},
 		),
 	)
-	i.log.Info("OpenTelemetry provider registered")
+	i.log.Debug("OpenTelemetry provider registered")
 }
 
 func init() {

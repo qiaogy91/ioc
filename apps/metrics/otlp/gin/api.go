@@ -1,12 +1,11 @@
-package restful
+package gin
 
 import (
 	"context"
 	"fmt"
-	restfulspec "github.com/emicklei/go-restful-openapi/v2"
 	"github.com/qiaogy91/ioc"
-	"github.com/qiaogy91/ioc/config/gorestful"
-	"github.com/qiaogy91/ioc/config/http"
+	"github.com/qiaogy91/ioc/config/gin"
+	iochttp "github.com/qiaogy91/ioc/config/http"
 	"github.com/qiaogy91/ioc/config/log"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/metric"
@@ -30,24 +29,20 @@ func (h *Handler) Priority() int { return 401 }
 func (h *Handler) Init() {
 	h.log = log.Sub(AppName)
 
+	// 从全局Provider 中获取一个 meter provider 来注册metric 指标
 	ioc.OtlpMustEnabled()
 
-	// 从全局Provider 中获取一个 meter provider 来注册metric 指标
 	meter := otel.Meter(AppName)
 	h.MetricRegistry(meter)
 
-	// 加载指标中间件，用来更新metric 指标值
-	gorestful.RootContainer().Filter(h.MetricMiddleware)
+	gin.RootRouter().Use(h.MetricMiddleware) // 加载指标中间件，用来更新metric 指标值
 
 	// 将 OpenTelemetry Metric 指标暴露到restful api 中
-	r := gorestful.ModuleWebservice(h)
-	r.Route(r.GET("").To(h.MetricHandler).
-		Doc("指标暴露").
-		Metadata(restfulspec.KeyOpenAPITags, []string{"指标监控"}),
-	)
+	r := gin.ModuleRouter(h)
+	r.GET("", h.MetricHandler)
 
 	h.log.Debug("Metric enabled",
-		slog.String("visit", fmt.Sprintf("http://%s/%s", http.Get().PrettyAddr(), AppName)))
+		slog.String("visit", fmt.Sprintf("http://%s/%s", iochttp.Get().PrettyAddr(), AppName)))
 }
 
 func (h *Handler) Close(ctx context.Context) error {

@@ -34,7 +34,7 @@ func (h *Handler) Init() {
 	h.log.Info(fmt.Sprintf("Get the API doc using http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json"))
 }
 func (h *Handler) Close(ctx context.Context) error {
-	h.log.Info("closed completed", slog.String("namespace", ioc.ApiNamespace))
+	h.log.Debug("closed completed", slog.String("namespace", ioc.ApiNamespace))
 	return nil
 }
 

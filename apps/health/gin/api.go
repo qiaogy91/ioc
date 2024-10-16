@@ -27,10 +27,11 @@ func (h *Handler) Init() {
 	r := iocgin.ModuleRouter(h)
 	r.GET("", h.HealthHandler)
 
-	h.log.Info(fmt.Sprintf("Get the Health using http://%s/%s", iochttp.Get().Addr(), h.Name()))
+	h.log.Debug("Health enabled",
+		slog.String("visit", fmt.Sprintf("http://%s/%s", iochttp.Get().PrettyAddr(), AppName)))
 }
 func (h *Handler) Close(ctx context.Context) error {
-	h.log.Info("closed completed", slog.String("namespace", ioc.ApiNamespace))
+	h.log.Debug("closed completed", slog.String("namespace", ioc.ApiNamespace))
 	return nil
 }
 func init() {

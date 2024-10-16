@@ -1,9 +1,12 @@
 package http
 
-import "github.com/qiaogy91/ioc"
+import (
+	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config"
+)
 
 const (
-	AppName = "http"
+	AppName = config.HttpName
 )
 
 func Get() *Http {

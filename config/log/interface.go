@@ -2,11 +2,12 @@ package log
 
 import (
 	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config"
 	"log/slog"
 )
 
 const (
-	AppName      = "log"
+	AppName      = config.LogName
 	SubLoggerKey = "component"
 )
 

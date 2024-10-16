@@ -61,7 +61,9 @@ func (h *Http) Init() {
 }
 
 func (h *Http) Start(ctx context.Context) {
-	h.log.Info(fmt.Sprintf("Started HttpServer at: %s", h.Addr()))
+	h.log.Debug("HttpServer started",
+		slog.String("listen", fmt.Sprintf("http://%s", h.Addr())),
+		slog.String("visit", fmt.Sprintf("http://%s", h.PrettyAddr())))
 
 	if err := h.server.ListenAndServe(); err != nil {
 		if errors.Is(err, http.ErrServerClosed) {
@@ -74,11 +76,11 @@ func (h *Http) Close(ctx context.Context) error {
 	if err := h.server.Shutdown(ctx); err != nil {
 		return fmt.Errorf("http graceful shutdown timeout, force exit")
 	}
-	h.log.Info("closed completed", slog.String("namespace", ioc.ConfigNamespace))
+	h.log.Debug("closed completed", slog.String("namespace", ioc.ConfigNamespace))
 	return nil
 }
 
-func (h *Http) Addr() string {
+func (h *Http) PrettyAddr() string {
 	if h.Host == "0.0.0.0" {
 		// 如果用户配置的是 0.0.0.0 则从本地接口随便取出一个地址
 		inters, err := net.InterfaceAddrs()
@@ -97,8 +99,11 @@ func (h *Http) Addr() string {
 			}
 		}
 	}
-	return fmt.Sprintf("%s:%d", h.Host, h.Port)
+	return h.Addr()
+}
 
+func (h *Http) Addr() string {
+	return fmt.Sprintf("%s:%d", h.Host, h.Port)
 }
 
 func (h *Http) SetRouter(r http.Handler) {

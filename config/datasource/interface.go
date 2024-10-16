@@ -2,11 +2,12 @@ package datasource
 
 import (
 	"github.com/qiaogy91/ioc"
+	"github.com/qiaogy91/ioc/config"
 	"gorm.io/gorm"
 )
 
 const (
-	AppName = "datasource"
+	AppName = config.DatasourceName
 )
 
 func Get() *DataSource {
