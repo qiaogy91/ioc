@@ -14,7 +14,7 @@ var (
 	ins = &Impl{
 		HttpEndpoint: "127.0.0.1:4318",
 		GrpcEndpoint: "127.0.0.1:4317",
-		Insecure:     true,
+		EnableTLS:    false,
 		shutdownFns:  make([]func(ctx context.Context) error, 0),
 	}
 )
@@ -24,7 +24,7 @@ type Impl struct {
 	log          *slog.Logger
 	HttpEndpoint string `json:"httpEndpoint" yaml:"httpEndpoint"`
 	GrpcEndpoint string `json:"grpcEndpoint" yaml:"grpcEndpoint"`
-	Insecure     bool   `json:"insecure" yaml:"insecure"`
+	EnableTLS    bool   `json:"enableTLS" yaml:"enableTLS"`
 	shutdownFns  []func(ctx context.Context) error
 }
 

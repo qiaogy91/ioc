@@ -2,6 +2,7 @@ package otlp
 
 import (
 	"context"
+	"crypto/tls"
 	"github.com/qiaogy91/ioc/config/application"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc"
@@ -17,6 +18,7 @@ import (
 	"go.opentelemetry.io/otel/sdk/resource"
 	"go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
+	"google.golang.org/grpc/credentials"
 	"time"
 )
 
@@ -58,11 +60,20 @@ func (i *Impl) getHttpExporter(ctx context.Context) (t trace.SpanExporter, m met
 	traceOpts = append(traceOpts, otlptracehttp.WithEndpoint(i.HttpEndpoint))
 	metricOpts = append(metricOpts, otlpmetrichttp.WithEndpoint(i.HttpEndpoint))
 	logOpts = append(logOpts, otlploghttp.WithEndpoint(i.HttpEndpoint))
-	if i.Insecure {
+
+	switch i.EnableTLS {
+	case true:
+		// 开启 TLS 验证
+		traceOpts = append(traceOpts, otlptracehttp.WithTLSClientConfig(&tls.Config{InsecureSkipVerify: true}))
+		metricOpts = append(metricOpts, otlpmetrichttp.WithTLSClientConfig(&tls.Config{InsecureSkipVerify: true}))
+		logOpts = append(logOpts, otlploghttp.WithTLSClientConfig(&tls.Config{InsecureSkipVerify: true}))
+
+	default:
 		traceOpts = append(traceOpts, otlptracehttp.WithInsecure())
 		metricOpts = append(metricOpts, otlpmetrichttp.WithInsecure())
 		logOpts = append(logOpts, otlploghttp.WithInsecure())
 	}
+
 	// exporters
 	t, err = otlptracehttp.New(ctx, traceOpts...)
 	m, err = otlpmetrichttp.New(ctx, metricOpts...)
@@ -86,11 +97,21 @@ func (i *Impl) getGrpcExporter(ctx context.Context) (t trace.SpanExporter, m met
 	traceOpts = append(traceOpts, otlptracegrpc.WithEndpoint(i.GrpcEndpoint))
 	metricOpts = append(metricOpts, otlpmetricgrpc.WithEndpoint(i.GrpcEndpoint))
 	logOpts = append(logOpts, otlploggrpc.WithEndpoint(i.GrpcEndpoint))
-	if i.Insecure {
+
+	switch i.EnableTLS {
+	case true:
+		// 开启 TLS 验证
+		tlsConfig := &tls.Config{InsecureSkipVerify: true} // 这里设置为 true 来跳过证书验证
+		traceOpts = append(traceOpts, otlptracegrpc.WithTLSCredentials(credentials.NewTLS(tlsConfig)))
+		metricOpts = append(metricOpts, otlpmetricgrpc.WithTLSCredentials(credentials.NewTLS(tlsConfig)))
+		logOpts = append(logOpts, otlploggrpc.WithTLSCredentials(credentials.NewTLS(tlsConfig)))
+
+	default:
 		traceOpts = append(traceOpts, otlptracegrpc.WithInsecure())
 		metricOpts = append(metricOpts, otlpmetricgrpc.WithInsecure())
 		logOpts = append(logOpts, otlploggrpc.WithInsecure())
 	}
+
 	// exporters
 	t, err = otlptracegrpc.New(ctx, traceOpts...)
 	m, err = otlpmetricgrpc.New(ctx, metricOpts...)

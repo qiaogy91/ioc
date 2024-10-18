@@ -14,7 +14,7 @@ import (
 func (h *Handler) docUI(r *restful.Request, w *restful.Response) {
 	w.Header().Set("Content-Type", "text/html")
 
-	docApi := fmt.Sprintf("http://%s/%s/%s", http.Get().Addr(), AppName, "doc.json ")
+	docApi := fmt.Sprintf("http://%s/%s/%s", http.Get().PrettyAddr(), AppName, "doc.json ")
 	docHtml := fmt.Sprintf(swagger.DocHtml, docApi)
 
 	if _, err := w.Write([]byte(docHtml)); err != nil {

@@ -1,5 +1,8 @@
+# grpc、http 同时开启时，优先使用grpc
+# enableTLS  默认为false，表示与后端OTLP Backend 使用明文通讯
+# enableTLS 设置为true. 表示与后端OTLP Backend 使用TLS 通讯（默认情况下不对后端提供的证书进行校验，只要求提供了证书就好，是为了兼容自签名证书）
 otlp:
   enabled: true
   httpEndpoint: "127.0.0.1:4318"
   grpcEndpoint: "127.0.0.1:4317"
-  insecure: true
+  enableTLS: true

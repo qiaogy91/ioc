@@ -6,7 +6,6 @@ import (
 	"github.com/qiaogy91/ioc/config/application"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/metric"
-	"log/slog"
 	"time"
 )
 
@@ -45,7 +44,6 @@ func (h *Handler) MetricMiddleware(req *restful.Request, rsp *restful.Response, 
 		attribute.String("method", req.Request.Method),
 		attribute.String("path", req.SelectedRoutePath())),
 	)
-	h.log.Info("延迟记录", slog.Float64("duration", float64(time.Since(start).Milliseconds())))
 	h.HttpRequestDurationHistogram.Record(req.Request.Context(), float64(time.Since(start).Milliseconds()), metric.WithAttributes(
 		attribute.String("service", application.Get().AppName),
 		attribute.String("method", req.Request.Method),
