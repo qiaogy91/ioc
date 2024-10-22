@@ -11,11 +11,22 @@ import (
 	"log/slog"
 )
 
-var _ ioc.ObjectInterface = &DataSource{}
+var (
+	_   ioc.ObjectInterface = &DataSource{}
+	ins                     = &DataSource{
+		Otlp:     false,
+		Host:     "127.0.0.1",
+		Port:     3306,
+		DB:       "must_set",
+		Username: "root",
+		Password: "redhat",
+		Debug:    true,
+	}
+)
 
 type DataSource struct {
 	ioc.ObjectImpl
-	Trace    bool   `json:"trace" yaml:"trace"`
+	Otlp     bool   `json:"otlp" yaml:"otlp"`
 	Host     string `json:"host" yaml:"host"`
 	Port     int    `json:"port" yaml:"port"`
 	DB       string `json:"database" yaml:"database"`
@@ -57,16 +68,15 @@ func (ds *DataSource) Init() {
 	if ds.Debug {
 		db = db.Debug()
 	}
-
 	ds.db = db
 
 	// 开启Trace
-	if ds.Trace {
+	if ds.Otlp {
 		ioc.OtlpMustEnabled()
-		if err := db.Use(tracing.NewPlugin(tracing.WithoutMetrics())); err != nil {
+		if err := db.Use(tracing.NewPlugin()); err != nil {
 			panic(err)
 		}
-		ds.log.Debug("mysql trace enabled")
+		ds.log.Debug("mysql Otlp enabled")
 	}
 }
 
@@ -84,5 +94,5 @@ func (ds *DataSource) Close(ctx context.Context) error {
 }
 
 func init() {
-	ioc.Config().Registry(&DataSource{})
+	ioc.Config().Registry(ins)
 }

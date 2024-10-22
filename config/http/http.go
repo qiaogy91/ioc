@@ -16,20 +16,22 @@ import (
 var (
 	_   ioc.ObjectInterface = &Http{}
 	ins                     = &Http{
-		Host:              "0.0.0.0",
+		Host:              "127.0.0.1",
 		Port:              8080,
+		GinMode:           "debug",
 		ReadHeaderTimeout: 30,
 		ReadTimeout:       60,
 		WriteTimeout:      60,
 		IdleTimeout:       300,
 		MaxHeaderSize:     "16kb",
-		Trace:             true,
+		Trace:             false,
 	}
 )
 
 type Http struct {
 	Host              string `json:"host" yaml:"host" env:"HOST"`
 	Port              int    `json:"port" yaml:"port" env:"PORT"`
+	GinMode           string `json:"ginMode" yaml:"ginMode"`                                               // 针对Gin 框架的模式
 	ReadHeaderTimeout int    `json:"readHeaderTimeout" yaml:"readHeaderTimeout" env:"READ_HEADER_TIMEOUT"` // 读取请求头超时时间
 	ReadTimeout       int    `json:"readTimeout" yaml:"readTimeout" env:"READ_TIMEOUT"`                    // 读取整个HTTP 的超时时间
 	WriteTimeout      int    `json:"writeTimeout" yaml:"writeTimeout" env:"WRITE_TIMEOUT"`                 // 响应的超时时间
@@ -73,7 +75,7 @@ func (h *Http) Init() {
 
 func (h *Http) Start(ctx context.Context) {
 	h.log.Debug("HttpServer started",
-		slog.String("listen", fmt.Sprintf("http://%s", h.Addr())),
+		slog.String("listen", h.Addr()),
 		slog.String("visit", fmt.Sprintf("http://%s", h.PrettyAddr())))
 
 	if err := h.server.ListenAndServe(); err != nil {

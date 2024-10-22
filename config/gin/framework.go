@@ -11,7 +11,14 @@ import (
 	"log/slog"
 )
 
-var _ ioc.ObjectInterface = &Framework{}
+var (
+	_   ioc.ObjectInterface = &Framework{}
+	ins                     = &Framework{
+		Mode:   "release",
+		Engine: nil,
+		log:    nil,
+	}
+)
 
 type Framework struct {
 	ioc.ObjectImpl
@@ -34,14 +41,15 @@ func (f *Framework) Close(ctx context.Context) error {
 }
 
 func (f *Framework) Init() {
-	gin.SetMode(f.Mode) // 设置模式要在Engine 初始化之前完成，否则不生效
+	// 获取Http 服务器
+	serv := http.Get()
+
+	// 初始化当前实例
+	gin.SetMode(serv.GinMode) // 设置Gin 全局模式（要在Engine 初始化之前完成，否则不生效）
+	
 	f.log = log.Sub(AppName)
 	f.Engine = gin.Default()
 	f.Engine.Use(gin.Recovery())
-
-	// 注册给Http服务器
-	serv := http.Get()
-	serv.SetRouter(f.Engine)
 
 	// 开启Trace
 	if serv.Trace {
@@ -49,8 +57,12 @@ func (f *Framework) Init() {
 		f.Engine.Use(otelgin.Middleware(application.Get().ApplicationName()))
 		f.log.Debug("Gin trace enabled")
 	}
+
+	// 注册给Http服务器
+	serv.SetRouter(f.Engine)
+
 }
 
 func init() {
-	ioc.Config().Registry(&Framework{})
+	ioc.Config().Registry(ins)
 }

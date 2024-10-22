@@ -46,8 +46,8 @@ func (h *Handler) Init() {
 	gorestful.RootContainer().Filter(h.MetricMiddleware)
 
 	// 将 OpenTelemetry Metric 指标暴露到restful api 中
-	r := gorestful.ModuleWebservice(h)
-	r.Route(r.GET("").To(h.MetricHandler).
+	ws := gorestful.ModuleWebservice(h)
+	ws.Route(ws.GET("").To(h.MetricHandler).
 		Doc("指标暴露").
 		Metadata(restfulspec.KeyOpenAPITags, []string{"指标监控"}),
 	)

@@ -7,7 +7,14 @@ import (
 	"log/slog"
 )
 
-var _ ioc.ObjectInterface = &Application{}
+var (
+	_   ioc.ObjectInterface = &Application{}
+	ins                     = &Application{
+		AppName:        "svc01",
+		AppDescription: "my service",
+		Domain:         "example.com",
+	}
+)
 
 type Application struct {
 	ioc.ObjectImpl
@@ -32,5 +39,5 @@ func (a *Application) Close(ctx context.Context) error {
 
 func (a *Application) ApplicationName() string { return a.AppName }
 func init() {
-	ioc.Config().Registry(&Application{})
+	ioc.Config().Registry(ins)
 }

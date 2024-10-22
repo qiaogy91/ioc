@@ -92,7 +92,7 @@ func (s *Server) Start(ctx context.Context) {
 	}
 
 	s.log.Debug("GrpcServer started",
-		slog.String("listen", fmt.Sprintf("http://%s", s.Addr())),
+		slog.String("listen", s.Addr()),
 		slog.String("visit", fmt.Sprintf("http://%s", s.PrettyAddr())))
 	if err := s.server.Serve(lis); err != nil {
 		s.log.Error("GrpcServer serve err", slog.Any("err", err))

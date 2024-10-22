@@ -1,19 +1,91 @@
 # infra
 > 自定义Ioc 实现的一个微服务开发框架，封装了 Gin、Restful 框架，以及添加了 health、Cors、Swagger、Metric、Trace... 等工具。支持
 > 开箱即用，用户只需要简单的配置文件，就可快速启动
+> 自动感知用户使用web 框架，即注册了Gin 的视图就使用Gin 框架、注册了Restful 框架就使用 Restful 框架
 
-#### 优先级
-Ioc 框架设置了默认4个名称空间
-- Config namespace：存放基础的框架配置对象、以及其他对象的依赖对象，比如gin、restful、gorm、application
-- Default namespace：存放用户自定义对象，拥有较高的优先级，在Controller Namespace 之前被初始化
-- Controller Namespace：控制器对象，负责具体业务逻辑处理
-- Apis Namespace：接口对象，负责对外提供API 接口
+### 框架原理
 
-Ioc 优先级关系逻辑图：
-[示例图](docs/priority.drawio)
+#### Ioc 优先级说明
+- Ioc 框架设置了默认4个名称空间
+  - Config namespace：存放基础的框架配置对象、以及其他对象的依赖对象，比如gin、restful、gorm、application
+  - Default namespace：存放用户自定义对象，拥有较高的优先级，在Controller Namespace 之前被初始化
+  - Controller Namespace：控制器对象，负责具体业务逻辑处理
+  - Apis Namespace：接口对象，负责对外提供API 接口
+
+- Ioc 优先级示意图：
+<img src="docs/priority.png">
 
 
-#### 单元测试
+#### Ioc 默认配置解析
+1. Application：用于定义当前微服务描述信息
+```yaml
+application:
+	appName: "svc01"
+	description: "my service"
+	domain: "example.com"
+```
+2. Cors：跨域配置
+```yaml
+cors:
+	allowedHeaders: ["*"]
+	allowedDomains: [".*"] 	# for gorestful
+	allowOrigins: ["*"]  		# for gin
+	allowedMethods: ["*"]
+	exposeHeaders: ["*"]
+	allowCookies: true
+	maxAge: 43200
+```
+3. Datasrouce: 数据库配置
+```yaml
+datasource:
+	otlp: false
+	host: "127.0.0.1"
+	port: 3306
+	database: "must_set"
+	username: "root"
+	password: "redhat"
+	debug: true
+```
+
+4. Http：http 服务配置
+```yaml
+http:
+	host: "127.0.0.1"
+	port: "8080"
+	readHeaderTimeout: 30
+	readTimeout: 60
+	writeTimeout: 60
+	idleTimeout: 300
+	maxHeaderSize: "16kb"
+	trace: false
+	ginMode: "debug"
+```
+5. Log：日志配置
+```yaml
+log:
+  trace: true
+  callerDeep: 3
+  level: debug
+  filename: "logs/app.log"
+  maxSize: 10
+  maxAge: 30
+  maxBackups: 6
+  LocalTime: true
+  compress: false
+  deep: 3
+```
+
+6. Otlp：遥测配置
+```yaml
+otlp:
+	httpEndpoint: "127.0.0.1:4318"
+	grpcEndpoint: "127.0.0.1:4317"
+	enableTLS: false
+```
+
+### 单元测试
+
+#### 在Ioc 中进行单元测试
 1. 示例
 ```go
 import (
@@ -35,28 +107,27 @@ func init() {
         panic(err)
     }
 }
+// 测试用例
+func TestFn1(t *testing.T) {}
 ```
 
+
+### 内建应用
 #### Health 检测接入
-1. 导入Ioc 模块
 ```go
 package main
 
 import (
-  _ "github.com/qiaogy91/infra/ioc/apps/health/restful" // restful 框架的健康探测服务
-  _ "github.com/qiaogy91/infra/ioc/apps/health/gin" // gin 框架的健康探测服务，二选一
+  _ "github.com/qiaogy91/ioc/apps/health/restful" // restful 框架的健康探测服务
+  _ "github.com/qiaogy91/ioc/apps/health/gin" // gin 框架的健康探测服务，二选一
 )
 ```
-
-2. 启动服务
 ```shell
 go run main.go start -t file
 # 2024-10-04T14:06:19+08:00 INFO   gin/api.go:28             > Get the Health using http://127.0.0.1:8080/health component:HEALTH
 ```
 
-#### Swagger 文档接入
-##### Gin 框架
-1. 为API 添加说明文档
+#### Gin Swagger 文档
 ```go
 package api
 
@@ -78,31 +149,26 @@ func (h *Handler) ginCreatTable(ctx *gin.Context) {
   ctx.JSON(200, "ok")
 }
 ```
-
-2. 生成文档
 ```shell
 cd ProjectRoot/
 swag init
 ```
-3. 导入Ioc 模块
 ```go
 package main
 
 import (
-  _ "github.com/qiaogy91/infra/example/docs"         // gin doc，上一步中生成的文档在项目根路径下 docs
-  _ "github.com/qiaogy91/infra/ioc/apps/health/gin"  // gin health
-  _ "github.com/qiaogy91/infra/ioc/apps/swagger/gin" // gin swagger
-  _ "github.com/qiaogy91/infra/ioc/config/cors/gin"  // gin cors
+  _ "github.com/qiaogy91/example/docs"         // gin doc，上一步中生成的文档在项目根路径下 docs
+  _ "github.com/qiaogy91/ioc/apps/health/gin"  // gin health
+  _ "github.com/qiaogy91/ioc/apps/swagger/gin" // gin swagger
+  _ "github.com/qiaogy91/ioc/config/cors/gin"  // gin cors
 )
 ```
-4. 启动服务
 ```shell
 go run main.go -t file
 # 2024-10-04T14:06:38+08:00 INFO   gin/api.go:32             > Get the API doc using http://127.0.0.1:8080/swagger/doc.json component:SWAGGER
 ```
 
-##### Restful 框架
-1. 为API 增加文档
+#### Restful Swagger 文档
 ```go
 package api
 
@@ -123,7 +189,6 @@ func (h *Handler) Init() {
   }
 }
 ```
-2. 导入Ioc 模块
 ```go
 package main
 
@@ -133,7 +198,6 @@ import (
   _ "github.com/qiaogy91/infra/ioc/apps/health/restful"
 )
 ```
-3. 启动服务
 ```shell
 go run main.go -t file 
 # 2024-10-04T14:06:19+08:00 INFO   gin/api.go:32             > Get the API doc using http://127.0.0.1:8080/swagger/doc.json component:SWAGGER
@@ -145,26 +209,10 @@ go run main.go -t file
 package main
 
 import (
-_ "github.com/qiaogy91/infra/ioc/apps/metrics/gin" // gin metric
-_ "github.com/qiaogy91/infra/ioc/apps/metrics/restful" // restful metric，二选一
+_ "github.com/qiaogy91/ioc/apps/metrics/gin" // gin metric
+_ "github.com/qiaogy91/ioc/apps/metrics/restful" // restful metric，二选一
 )
 ```
-
-2. 配置Metric 
-> 内置了一个采集器，来采集所有API 的访问情况，可按需关闭
-```yaml 
-metrics:
-apiStatusEnable: true
-requestHistogram: true
-requestHistogramName: "http_request_duration_histogram"
-requestHistogramBucket: [ 1, 2, 3, 4, 5, 6, 7 ]
-requestSummary: true
-requestSummaryName: "http_request_duration_summary"
-requestSummaryObjective: [ 0.5, 0.9, 0.99 ]
-requestTotal: true
-requestTotalName: "http_request_total"
-```
-3. 运行项目
 ```shell
 go run main.go start -t file 
 # 2024-10-04T19:51:07+08:00 INFO   gin/api.go:47             > Get the Metric using http://127.0.0.1:8080/metrics component:METRICS
@@ -183,33 +231,9 @@ http_request_duration_histogram_bucket{method="GET",path="/app01/",le="+Inf"} 4
 ```
 
 #### Trace 指标接入
-> 内部已经集成，配置即可使用
-1. 程序加载配置
-```yaml
-http:
-enable: true
-trace: true  # 为http 框架开启trace 功能
-host: 127.0.0.1
-port: 8080
-readHeaderTimeout: 30
-readTimeout: 60
-writeTimeout: 60
-idleTimeout: 300
-maxHeaderSize: "16kb"
-datasource:
-trace: true # 为gorm 开启trace 功能
-host: "127.0.0.1"
-port: 3306
-database: "ioc"
-username: "root"
-password: "redhat"
-debug: true
-trace:
-enable: true # 前提是trace 基础模块已经加载
-endpoint: "127.0.0.1:4138"
-insecure: true
+```go
+import _ "github.com/qiaogy91/ioc/config/otlp" // 开启遥测功能
 ```
-2. 运行程序
 ```shell
 go run main.go start -t file
 ```

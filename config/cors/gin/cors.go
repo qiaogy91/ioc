@@ -11,7 +11,8 @@ import (
 )
 
 var (
-	ins = &CORS{
+	_   ioc.ObjectInterface = &CORS{}
+	ins                     = &CORS{
 		AllowedHeaders: []string{"*"},
 		AllowOrigins:   []string{"*"},
 		AllowedMethods: []string{"*"},
