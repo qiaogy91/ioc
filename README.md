@@ -20,45 +20,45 @@
 1. Application：用于定义当前微服务描述信息
 ```yaml
 application:
-	appName: "svc01"
-	description: "my service"
-	domain: "example.com"
+  appName: "svc01"
+  description: "my service"
+  domain: "example.com"
 ```
 2. Cors：跨域配置
 ```yaml
 cors:
-	allowedHeaders: ["*"]
-	allowedDomains: [".*"] 	# for gorestful
-	allowOrigins: ["*"]  		# for gin
-	allowedMethods: ["*"]
-	exposeHeaders: ["*"]
-	allowCookies: true
-	maxAge: 43200
+  allowedHeaders: [ "*" ]
+  allowedDomains: [ ".*" ]    # for gorestful
+  allowOrigins: [ "*" ]        # for gin
+  allowedMethods: [ "*" ]
+  exposeHeaders: [ "*" ]
+  allowCookies: true
+  maxAge: 43200
 ```
 3. Datasrouce: 数据库配置
 ```yaml
 datasource:
-	otlp: false
-	host: "127.0.0.1"
-	port: 3306
-	database: "must_set"
-	username: "root"
-	password: "redhat"
-	debug: true
+  otlp: false
+  host: "127.0.0.1"
+  port: 3306
+  database: "must_set"
+  username: "root"
+  password: "redhat"
+  debug: true
 ```
 
 4. Http：http 服务配置
 ```yaml
 http:
-	host: "127.0.0.1"
-	port: "8080"
-	readHeaderTimeout: 30
-	readTimeout: 60
-	writeTimeout: 60
-	idleTimeout: 300
-	maxHeaderSize: "16kb"
-	trace: false
-	ginMode: "debug"
+  host: "127.0.0.1"
+  port: "8080"
+  readHeaderTimeout: 30
+  readTimeout: 60
+  writeTimeout: 60
+  idleTimeout: 300
+  maxHeaderSize: "16kb"
+  trace: false
+  ginMode: "debug"
 ```
 5. Log：日志配置
 ```yaml
@@ -78,9 +78,9 @@ log:
 6. Otlp：遥测配置
 ```yaml
 otlp:
-	httpEndpoint: "127.0.0.1:4318"
-	grpcEndpoint: "127.0.0.1:4317"
-	enableTLS: false
+  httpEndpoint: "127.0.0.1:4318"
+  grpcEndpoint: "127.0.0.1:4317"
+  enableTLS: false
 ```
 
 ### 单元测试
