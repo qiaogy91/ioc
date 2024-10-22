@@ -57,10 +57,16 @@ func (ds *DataSource) Init() {
 		ds.DB,
 	)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-		PrepareStmt:            true, // 执行任何 SQL 时都创建并缓存预编译语句，可以提高后续的调用速度
-		SkipDefaultTransaction: true, // 对于写操作，默认Gorm 为了数据的完整性将其封装在事务中运行。如果没有这方面要求可关闭，性能会提升30%
-	})
+	// 开启 PrepareStmt 则会在执行 SQL 时缓存预编译语句。
+	// GORM 在启用该功能时，会在 ConnPool 中使用一个自定义类型来支持预编译语句的缓存机制，即导致 db.ConnPool 不再是 *sql.DB 类型
+	// go-gorm/opentelemetry 会通过判断 db.ConnPool 是否是 *sql.DB 类型，来决定是否注册DB 相关的Metrics
+	// 因此开启该参数后，会导致无法收集 DB 相关的Metrics，因此当遥测开关打开时，需要关闭这个Gorm 参数
+	conf := &gorm.Config{SkipDefaultTransaction: true}
+	if !ds.Otlp {
+		conf.PrepareStmt = true // 执行任何 SQL 时都创建并缓存预编译语句，可以提高后续的调用速度
+	}
+
+	db, err := gorm.Open(mysql.Open(dsn), conf)
 	if err != nil {
 		panic(err)
 	}

@@ -47,12 +47,11 @@ datasource:
   password: "redhat"
   debug: true
 ```
-
 4. Http：http 服务配置
 ```yaml
 http:
   host: "127.0.0.1"
-  port: "8080"
+  port: 8080
   readHeaderTimeout: 30
   readTimeout: 60
   writeTimeout: 60
@@ -61,7 +60,15 @@ http:
   trace: false
   ginMode: "debug"
 ```
-5. Log：日志配置
+5. Grpc：grpc 服务配置
+```yaml
+grpc:
+  host: "127.0.0.1"
+  port: 18081
+  token: "my_grpc_server_token"
+```
+
+6. Log：日志配置
 ```yaml
 log:
   trace: true
@@ -76,7 +83,7 @@ log:
   deep: 3
 ```
 
-6. Otlp：遥测配置
+7. Otlp：遥测配置
 ```yaml
 otlp:
   httpEndpoint: "127.0.0.1:4318"
