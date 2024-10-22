@@ -1,7 +1,8 @@
 # infra
-> 自定义Ioc 实现的一个微服务开发框架，封装了 Gin、Restful 框架，以及添加了 health、Cors、Swagger、Metric、Trace... 等工具。支持
-> 开箱即用，用户只需要简单的配置文件，就可快速启动
-> 自动感知用户使用web 框架，即注册了Gin 的视图就使用Gin 框架、注册了Restful 框架就使用 Restful 框架
+> 1. DDD 模型 Ioc 微服务开发框架
+> 2. 内置 Gin、Restful 框架，以及添加了 health、Cors、Swagger、Metric、Trace... 等开箱即用的工具支持
+> 3. 提供默认配置，用户可以自定义配置来进行覆盖，框架会自动加载用户自定义配置
+> 4. 提供自动感知web 框架功能，即注册了Gin 的视图就使用Gin 框架、注册了Restful 框架就使用 Restful 框架
 
 ### 框架原理
 
