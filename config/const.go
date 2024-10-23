@@ -10,4 +10,5 @@ const (
 	HttpName        = "http"
 	LogName         = "log"
 	OtlpName        = "otlp"
+	Ip2RegionName   = "ip2region"
 )

@@ -118,7 +118,27 @@ func init() {
 // 测试用例
 func TestFn1(t *testing.T) {}
 ```
+### 内建工具
+#### IP地址解析
+```yaml
+ip2region:
+  filePath: "etc/ip2region.xdb"
+```
 
+```go
+package main
+
+import (
+  "fmt"
+  "github.com/qiaogy91/ioc/default/ip2region"
+)
+
+func main() {
+  c := ip2region.Get()
+  res, _ := c.SearchByStr("1.2.3.4")
+  fmt.Println(res)
+}
+```
 
 ### 内建应用
 #### Health 检测接入
