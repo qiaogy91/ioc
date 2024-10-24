@@ -5,6 +5,7 @@ import (
 	"github.com/bsm/redislock"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
+	"github.com/redis/go-redis/extra/redisotel/v9"
 	"github.com/redis/go-redis/v9"
 	"log/slog"
 )
@@ -15,18 +16,21 @@ var (
 		Username: "default",
 		Password: "redhat",
 		Database: 1,
+		OTLP:     false,
 	}
 )
 
 type Redis struct {
 	ioc.ObjectImpl
-	log      *slog.Logger
+	log    *slog.Logger
+	client redis.UniversalClient
+	lock   *redislock.Client
+
 	Address  []string `json:"address" yaml:"address"`
 	Username string   `json:"username" yaml:"username"`
 	Password string   `json:"password" yaml:"password"`
 	Database int      `json:"database" yaml:"database"`
-	client   redis.UniversalClient
-	lock     *redislock.Client
+	OTLP     bool     `json:"otlp" yaml:"otlp"`
 }
 
 func (rds *Redis) Name() string  { return AppName }
@@ -44,7 +48,22 @@ func (rds *Redis) Init() {
 		panic(err)
 	}
 
+	// 分布式锁
 	rds.lock = redislock.New(rds.client)
+
+	// 遥测
+	if rds.OTLP {
+		ioc.OtlpMustEnabled()
+		// Enable tracing instrumentation.
+		if err := redisotel.InstrumentTracing(rds.client); err != nil {
+			panic(err)
+		}
+
+		// Enable metrics instrumentation.
+		if err := redisotel.InstrumentMetrics(rds.client); err != nil {
+			panic(err)
+		}
+	}
 }
 
 func (rds *Redis) Close(ctx context.Context) error {
