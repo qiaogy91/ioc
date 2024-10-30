@@ -16,7 +16,7 @@ var (
 	ins = &Logger{
 		lock:       new(sync.Mutex),
 		subLoggers: make(map[string]*slog.Logger),
-		Trace:      true,
+		Trace:      false,
 		Level:      slog.LevelDebug,
 		Filename:   "logs/app.log",
 		MaxSize:    10,

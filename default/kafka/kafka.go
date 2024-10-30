@@ -48,8 +48,8 @@ func (c *Client) Producer(topic string) *kafka.Writer {
 		Balancer:               &kafka.LeastBytes{},
 		Transport:              &kafka.Transport{SASL: c.mechanism},
 		AllowAutoTopicCreation: true,
+		Async:                  c.Async,
 	}
-
 }
 
 func (c *Client) Consumer(topic, groupId string) *kafka.Reader {
