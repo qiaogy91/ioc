@@ -46,13 +46,13 @@ func (f *Framework) Init() {
 
 	// 初始化当前实例
 	gin.SetMode(serv.GinMode) // 设置Gin 全局模式（要在Engine 初始化之前完成，否则不生效）
-	
+
 	f.log = log.Sub(AppName)
 	f.Engine = gin.Default()
 	f.Engine.Use(gin.Recovery())
 
 	// 开启Trace
-	if serv.Trace {
+	if serv.Otlp {
 		ioc.OtlpMustEnabled()
 		f.Engine.Use(otelgin.Middleware(application.Get().ApplicationName()))
 		f.log.Debug("Gin trace enabled")

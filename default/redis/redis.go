@@ -16,7 +16,7 @@ var (
 		Username: "default",
 		Password: "redhat",
 		Database: 1,
-		OTLP:     false,
+		Otlp:     false,
 	}
 )
 
@@ -30,7 +30,7 @@ type Redis struct {
 	Username string   `json:"username" yaml:"username"`
 	Password string   `json:"password" yaml:"password"`
 	Database int      `json:"database" yaml:"database"`
-	OTLP     bool     `json:"otlp" yaml:"otlp"`
+	Otlp     bool     `json:"otlp" yaml:"otlp"`
 }
 
 func (rds *Redis) Name() string  { return AppName }
@@ -52,7 +52,7 @@ func (rds *Redis) Init() {
 	rds.lock = redislock.New(rds.client)
 
 	// 遥测
-	if rds.OTLP {
+	if rds.Otlp {
 		ioc.OtlpMustEnabled()
 		// Enable tracing instrumentation.
 		if err := redisotel.InstrumentTracing(rds.client); err != nil {

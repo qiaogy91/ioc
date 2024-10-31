@@ -45,7 +45,7 @@ func (f *Framework) Init() {
 	f.Container.Filter(f.AccessLog)
 
 	// 替换为otlp trace
-	if serv.Trace {
+	if serv.Otlp {
 		ioc.OtlpMustEnabled()
 		f.Container.Filter(otelrestful.OTelFilter(application.Get().ApplicationName()))
 		f.log.Debug("Restful trace enabled")

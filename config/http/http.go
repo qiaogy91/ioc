@@ -24,7 +24,7 @@ var (
 		WriteTimeout:      60,
 		IdleTimeout:       300,
 		MaxHeaderSize:     "16kb",
-		Trace:             false,
+		Otlp:              false,
 	}
 )
 
@@ -37,7 +37,7 @@ type Http struct {
 	WriteTimeout      int    `json:"writeTimeout" yaml:"writeTimeout" env:"WRITE_TIMEOUT"`                 // 响应的超时时间
 	IdleTimeout       int    `json:"idleTimeout" yaml:"idleTimeout" env:"IDLE_TIMEOUT"`                    // 开启Keepalive后，复用TCP 链接的超时时间
 	MaxHeaderSize     string `json:"maxHeaderSize" yaml:"maxHeaderSize" env:"MAX_HEADER_SIZE"`             // HEADER 最大大小
-	Trace             bool   `json:"trace" yaml:"trace"`                                                   // 是否开启Trace
+	Otlp              bool   `json:"otlp" yaml:"otlp"`                                                     // 是否开启Trace
 
 	ioc.ObjectImpl
 	log            *slog.Logger

@@ -16,7 +16,7 @@ var (
 	ins = &Logger{
 		lock:       new(sync.Mutex),
 		subLoggers: make(map[string]*slog.Logger),
-		Trace:      false,
+		Otlp:       false,
 		Level:      slog.LevelDebug,
 		Filename:   "logs/app.log",
 		MaxSize:    10,
@@ -33,7 +33,7 @@ type Logger struct {
 	lock       sync.Locker
 	subLoggers map[string]*slog.Logger
 	root       *slog.Logger
-	Trace      bool       `json:"trace" yaml:"trace"`           // 开启trace
+	Otlp       bool       `json:"otlp" yaml:"otlp"`             // 开启trace
 	Level      slog.Level `json:"level" yaml:"level"`           // 级别
 	Filename   string     `json:"filename" yaml:"filename"`     // 日志文件名
 	MaxSize    int        `json:"maxSize" yaml:"maxSize"`       // 触发滚动的文件大小，单位 megabytes
@@ -118,7 +118,7 @@ func (l *Logger) Init() {
 	}
 
 	// 如果开启追踪，则增加一个handler 用来将日志发送到 Otlp
-	if l.Trace {
+	if l.Otlp {
 		ioc.OtlpMustEnabled()
 		handlers.hs = append(handlers.hs, otelslog.NewHandler("trace-handler"))
 	}
