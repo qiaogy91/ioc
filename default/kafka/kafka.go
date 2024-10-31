@@ -11,15 +11,20 @@ import (
 	"time"
 )
 
+/*
+注意：当异步模式开启时，Producer 必须持续至少运行 BatchTimeout 时间后再结束，确保消息能够在 BatchTimeout 时间到达后写入 Kafka 集群
+*/
+
 type Client struct {
 	ioc.ObjectImpl
-	log       *slog.Logger
-	Username  string   `json:"username" yaml:"username"`
-	Password  string   `json:"password" yaml:"password"`
-	Brokers   []string `json:"brokers" yaml:"brokers"`
-	Async     bool     `json:"async" yaml:"async"`
-	Offset    int64    `json:"offset" yaml:"offset"`
-	mechanism sasl.Mechanism
+	log          *slog.Logger
+	Username     string   `json:"username" yaml:"username"`
+	Password     string   `json:"password" yaml:"password"`
+	Brokers      []string `json:"brokers" yaml:"brokers"`
+	Async        bool     `json:"async" yaml:"async"`
+	BatchTimeout int      `json:"batchTimeout" yaml:"batchTimeout"`
+	Offset       int64    `json:"offset" yaml:"offset"`
+	mechanism    sasl.Mechanism
 }
 
 func (c *Client) Name() string  { return AppName }
@@ -49,6 +54,7 @@ func (c *Client) Producer(topic string) *kafka.Writer {
 		Transport:              &kafka.Transport{SASL: c.mechanism},
 		AllowAutoTopicCreation: true,
 		Async:                  c.Async,
+		BatchTimeout:           time.Duration(c.BatchTimeout) * time.Second,
 	}
 }
 
