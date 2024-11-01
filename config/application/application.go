@@ -10,8 +10,8 @@ import (
 var (
 	_   ioc.ObjectInterface = &Application{}
 	ins                     = &Application{
-		AppName:        "svc01",
-		AppDescription: "my service",
+		AppName:        "DefaultApp",
+		AppDescription: "my default app service",
 		Domain:         "example.com",
 	}
 )
