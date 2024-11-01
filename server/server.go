@@ -31,8 +31,6 @@ func (s *Server) Run(ctx context.Context) error {
 	// 处理信号量
 	s.ch = make(chan os.Signal, 1)
 	signal.Notify(s.ch, syscall.SIGTERM, syscall.SIGINT, syscall.SIGHUP, syscall.SIGQUIT)
-	s.http = http.Get()
-	s.grpc = grpc.Get()
 
 	s.log = log.Sub(AppName)
 
@@ -41,8 +39,14 @@ func (s *Server) Run(ctx context.Context) error {
 	s.log.Info("init success", slog.Any("controller", ioc.Controller().List()))
 	s.log.Info("init success", slog.Any("api", ioc.Api().List()))
 
-	go s.http.Start(ctx)
-	go s.grpc.Start(ctx)
+	s.http = http.Get()
+	if s.http.Enabled {
+		go s.http.Start(ctx)
+	}
+	s.grpc = grpc.Get()
+	if s.grpc.Enabled {
+		go s.grpc.Start(ctx)
+	}
 
 	s.waitSign()
 	return nil

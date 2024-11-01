@@ -17,16 +17,18 @@ import (
 var (
 	_   ioc.ObjectInterface = &Server{}
 	ins                     = &Server{
-		Host:  "127.0.0.1",
-		Port:  18080,
-		Token: "my_secret_token",
+		Enabled: false,
+		Host:    "127.0.0.1",
+		Port:    18080,
+		Token:   "my_secret_token",
 	}
 )
 
 type Server struct {
-	Host  string `json:"host" yaml:"host"`
-	Port  int    `json:"port" yaml:"port"`
-	Token string `json:"token" yaml:"token"`
+	Enabled bool   `json:"enabled" yaml:"enabled"`
+	Host    string `json:"host" yaml:"host"`
+	Port    int    `json:"port" yaml:"port"`
+	Token   string `json:"token" yaml:"token"`
 	ioc.ObjectImpl
 	server *grpc.Server
 	log    *slog.Logger

@@ -16,6 +16,7 @@ import (
 var (
 	_   ioc.ObjectInterface = &Http{}
 	ins                     = &Http{
+		Enabled:           false,
 		Host:              "127.0.0.1",
 		Port:              8080,
 		GinMode:           "debug",
@@ -29,6 +30,7 @@ var (
 )
 
 type Http struct {
+	Enabled           bool   `json:"enabled" yaml:"enabled"`
 	Host              string `json:"host" yaml:"host" env:"HOST"`
 	Port              int    `json:"port" yaml:"port" env:"PORT"`
 	GinMode           string `json:"ginMode" yaml:"ginMode"`                                               // 针对Gin 框架的模式
