@@ -28,7 +28,7 @@ type Client struct {
 }
 
 func (c *Client) Name() string  { return AppName }
-func (c *Client) Priority() int { return 201 }
+func (c *Client) Priority() int { return 203 }
 func (c *Client) Init() {
 	c.log = log.Sub(AppName)
 	if c.Username == "" {
