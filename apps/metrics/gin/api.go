@@ -35,7 +35,7 @@ func (h *Handler) Priority() int { return 401 }
 func (h *Handler) Init() {
 	h.log = log.Sub(AppName)
 
-	// 从全局Provider 中获取一个 meter provider 来注册metric 指标
+	// 从全局Provider 中获取一个 meter impl 来注册metric 指标
 	ioc.OtlpMustEnabled()
 
 	meter := otel.Meter(AppName)

@@ -41,7 +41,7 @@ func (i *Impl) Close(ctx context.Context) error {
 
 func (i *Impl) Init() {
 	i.log = log.Sub(AppName)
-	// 注册全局 provider
+	// 注册全局 impl
 	i.RegistryProvider(context.Background())
 
 	// 定义上下文传播方式：传递额外的上下文信息、准的 context 上下文信息
@@ -51,7 +51,7 @@ func (i *Impl) Init() {
 			propagation.TraceContext{},
 		),
 	)
-	i.log.Debug("OpenTelemetry provider registered")
+	i.log.Debug("OpenTelemetry impl registered")
 }
 
 func init() {

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/log"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
@@ -29,6 +30,7 @@ type Server struct {
 	Host    string `json:"host" yaml:"host"`
 	Port    int    `json:"port" yaml:"port"`
 	Token   string `json:"token" yaml:"token"`
+	Otlp    bool   `json:"otlp" yaml:"otlp"`
 	ioc.ObjectImpl
 	server *grpc.Server
 	log    *slog.Logger
@@ -40,9 +42,20 @@ func (s *Server) Name() string {
 
 func (s *Server) Priority() int { return 107 }
 
+func (s *Server) Options() (opts []grpc.ServerOption) {
+	opts = append(opts, grpc.UnaryInterceptor(s.TokenAuth))
+
+	if s.Otlp {
+		ioc.OtlpMustEnabled()
+		opts = append(opts, grpc.StatsHandler(otelgrpc.NewServerHandler()))
+		s.log.Debug("gRPC trace enabled")
+	}
+
+	return
+}
 func (s *Server) Init() {
 	s.log = log.Sub(AppName)
-	s.server = grpc.NewServer(grpc.UnaryInterceptor(s.TokenAuth))
+	s.server = grpc.NewServer(s.Options()...)
 }
 
 func (s *Server) TokenAuth(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
