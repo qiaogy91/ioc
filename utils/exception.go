@@ -1,10 +1,11 @@
 package utils
 
-func NewApiException(c int, m string, err error) *ApiException {
+func NewApiException(httpCode int, code int, m string, err error) *ApiException {
 	return &ApiException{
-		Code:    c,
-		Message: m,
-		Cause:   err.Error(),
+		HttpCode: httpCode,
+		Code:     code,
+		Message:  m,
+		Cause:    err.Error(),
 	}
 }
 
@@ -15,11 +16,11 @@ type ApiException struct {
 	Cause    string `json:"cause"`
 }
 
-func (e *ApiException) Error() string {
-	return e.Message
-}
-
-func (e *ApiException) WithHttpCode(c int) *ApiException {
-	e.HttpCode = c
-	return e
-}
+//func (e *ApiException) Error() string {
+//	return e.Message
+//}
+//
+//func (e *ApiException) WithHttpCode(c int) *ApiException {
+//	e.HttpCode = c
+//	return e
+//}

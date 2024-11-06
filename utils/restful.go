@@ -17,8 +17,8 @@ var (
 	Decoder *schema.Decoder
 )
 
-func SendFailed(w *restful.Response, e error) {
-	if err := w.WriteAsJson(e); err != nil {
+func SendFailed(w *restful.Response, e *ApiException) {
+	if err := w.WriteHeaderAndJson(e.HttpCode, e, restful.MIME_JSON); err != nil {
 		l.Error("send failed response err", slog.Any("err", err))
 	}
 }
