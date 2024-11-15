@@ -20,7 +20,7 @@ type Handler struct {
 
 func (h *Handler) Name() string { return AppName }
 func (h *Handler) Priority() int {
-	return 403
+	return 499
 }
 
 func (h *Handler) Init() {

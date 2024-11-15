@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"github.com/emicklei/go-restful/v3"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/grpc"
 	"github.com/qiaogy91/ioc/config/http"
@@ -48,6 +49,13 @@ func (s *Server) Run(ctx context.Context) error {
 		go s.grpc.Start(ctx)
 	}
 
+	// 打印所有API
+	time.Sleep(2 * time.Second)
+	for _, ws := range restful.DefaultContainer.RegisteredWebServices() {
+		for _, r := range ws.Routes() {
+			s.log.Info("Registry", slog.String("doc", r.Doc), slog.String("method", r.Method), slog.String("path", r.Path))
+		}
+	}
 	s.waitSign()
 	return nil
 }
