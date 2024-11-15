@@ -1,8 +1,18 @@
 package labels
 
 const (
-	ResourceName     = "ResourceName"
-	ActionName       = "ActionName"
-	AuditEnable      = "AuditEnable"
-	PermissionEnable = "PermissionEnable"
+	ApiTags           = "openapi.tags"
+	AuthEnabled       = "AuthEnabled"
+	AuditEnabled      = "AuditEnabled"
+	PermissionEnabled = "PermissionEnabled"
+
+	Resource = "Resource"
+	Action   = "Action"
+	Desc     = "Desc"
+)
+
+const (
+	ContextTokenKey   = "token"
+	HttpAuthHeaderKey = "token"
+	HttpAuthCookieKey = "token"
 )
