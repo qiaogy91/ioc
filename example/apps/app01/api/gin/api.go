@@ -1,17 +1,18 @@
 package gin
 
 import (
+	"log/slog"
+
 	"github.com/qiaogy91/ioc"
 	iocgin "github.com/qiaogy91/ioc/config/gin"
 	"github.com/qiaogy91/ioc/config/log"
 	"github.com/qiaogy91/ioc/example/apps/app01"
-	"github.com/rs/zerolog"
 )
 
 type Handler struct {
 	ioc.ObjectImpl
 	svc app01.Service
-	log *zerolog.Logger
+	log *slog.Logger
 }
 
 // Init

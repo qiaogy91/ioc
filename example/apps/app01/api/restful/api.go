@@ -1,18 +1,19 @@
 package restful
 
 import (
+	"log/slog"
+
 	"github.com/emicklei/go-restful/v3"
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/gorestful"
 	"github.com/qiaogy91/ioc/config/log"
 	"github.com/qiaogy91/ioc/example/apps/app01"
-	"github.com/rs/zerolog"
 )
 
 type Handler struct {
 	ioc.ObjectImpl
 	svc app01.Service
-	log *zerolog.Logger
+	log *slog.Logger
 }
 
 func (h *Handler) Name() string  { return app01.AppName }
@@ -34,7 +35,10 @@ func (h *Handler) Init() {
 	// 打印所有已注册的路由
 	for _, ws := range restful.RegisteredWebServices() {
 		for _, r := range ws.Routes() {
-			h.log.Info().Msgf("%-6s %s", r.Method, r.Path)
+			h.log.Info("route registered",
+				slog.String("method", r.Method),
+				slog.String("path", r.Path),
+			)
 		}
 	}
 }

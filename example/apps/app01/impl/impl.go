@@ -1,12 +1,13 @@
 package impl
 
 import (
+	"log/slog"
+
 	"github.com/qiaogy91/ioc"
 	"github.com/qiaogy91/ioc/config/datasource"
 	"github.com/qiaogy91/ioc/config/grpc"
 	"github.com/qiaogy91/ioc/config/log"
 	"github.com/qiaogy91/ioc/example/apps/app01"
-	"github.com/rs/zerolog"
 	"gorm.io/gorm"
 )
 
@@ -19,7 +20,7 @@ type Impl struct {
 	ioc.ObjectImpl                   // 提供注册到 ioc 的能力
 	app01.UnimplementedServiceServer // 提供实现了gRpc 的能力
 
-	log       *zerolog.Logger
+	log       *slog.Logger
 	db        *gorm.DB
 	KafkaName string `yaml:"kafkaName"`
 }

@@ -7,10 +7,10 @@ gin-framework:
 #  mode: release
   mode: debug
 http:
-  enable: true
-  trace: true
+  enabled: true
+  trace: false
   host: 127.0.0.1
-  port: 8080
+  port: 8085
   readHeaderTimeout: 30
   readTimeout: 60
   writeTimeout: 60
@@ -18,7 +18,7 @@ http:
   maxHeaderSize: "16kb"
 
 grpc:
-  enable: true
+  enabled: true
   host: 127.0.0.1
   port: 18080
   token: "my-token-str"
@@ -67,7 +67,12 @@ metrics:
 
 
 trace:
-  enable: true
+  enable: false
   endpoint: "127.0.0.1:4318"
   insecure: true
+
+# MCP Demo 配置
+handler_mcpdemo:
+  stateless: true
+  transport: "streamable_http"  # 当前仅支持 streamable_http
 

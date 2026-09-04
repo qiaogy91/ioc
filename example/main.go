@@ -1,16 +1,16 @@
 package main
 
 import (
-	_ "github.com/qiaogy91/ioc/apps/health/restful"
-	_ "github.com/qiaogy91/ioc/apps/metrics/restful"
+	//_ "github.com/qiaogy91/ioc/apps/health/restful"
+	//_ "github.com/qiaogy91/ioc/apps/metrics/restful"
 	_ "github.com/qiaogy91/ioc/example/apps"
 	//_ "github.com/qiaogy91/ioc/example/docs"         // gin doc
-	//_ "github.com/qiaogy91/ioc/apps/health/gin"  // gin health
+	_ "github.com/qiaogy91/ioc/apps/health/gin" // gin health
 	//_ "github.com/qiaogy91/ioc/apps/metrics/gin" // gin metric
 	//_ "github.com/qiaogy91/ioc/apps/swagger/gin" // gin swagger
-	//_ "github.com/qiaogy91/ioc/config/cors/gin"  // gin cors
-	_ "github.com/qiaogy91/ioc/apps/swagger/restful"
-	_ "github.com/qiaogy91/ioc/config/cors/restful"
+	_ "github.com/qiaogy91/ioc/config/cors/gin" // gin cors
+	//_ "github.com/qiaogy91/ioc/apps/swagger/restful"
+	//_ "github.com/qiaogy91/ioc/config/cors/restful"
 	"github.com/qiaogy91/ioc/server"
 )
 
@@ -29,5 +29,5 @@ import (
 // @host petstore.swagger.io:8080
 // @BasePath /v2
 func main() {
-	server.Start()
+	server.Execute()
 }
